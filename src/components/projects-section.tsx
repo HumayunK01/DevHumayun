@@ -68,7 +68,7 @@ export function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" ref={sectionRef} className="section-padding bg-muted/10 reveal-container">
+    <section id="projects" ref={sectionRef} className="section-padding bg-muted/5 reveal-container">
       <div className="container mx-auto">
         <div className="text-center mb-16 reveal-content">
           <div className="inline-block">
@@ -84,7 +84,7 @@ export function ProjectsSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-content" style={{transitionDelay: "0.2s"}}>
           {projects.map((project, index) => (
-            <Card key={index} className="card-hover border-border overflow-hidden bg-card/50 backdrop-blur-sm">
+            <Card key={index} className="card-hover border-border overflow-hidden bg-background/30 backdrop-blur-md hover:bg-background/40 transition-all duration-300">
               <CardHeader className="relative">
                 {project.imageUrl ? (
                   <div className="aspect-video rounded-md overflow-hidden">
@@ -95,7 +95,7 @@ export function ProjectsSection() {
                     />
                   </div>
                 ) : (
-                  <div className="aspect-video rounded-md bg-secondary/50 flex items-center justify-center">
+                  <div className="aspect-video rounded-md bg-secondary/30 backdrop-blur-sm flex items-center justify-center">
                     <Folder size={64} className="text-muted-foreground/50" />
                   </div>
                 )}
@@ -106,7 +106,7 @@ export function ProjectsSection() {
                 <p className="text-muted-foreground mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, i) => (
-                    <span key={i} className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
+                    <span key={i} className="text-xs px-2 py-1 rounded-full bg-secondary/50 backdrop-blur-sm text-secondary-foreground">
                       {tag}
                     </span>
                   ))}

@@ -35,12 +35,12 @@ export function Navbar({ className }: NavbarProps) {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-theme",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm"
+          ? "bg-background/60 backdrop-blur-lg border-b border-border/50 shadow-sm"
           : "bg-transparent",
         className
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
         <Link
           to="/"
           className="text-2xl font-bold text-foreground font-serif transition-theme"
@@ -49,12 +49,12 @@ export function Navbar({ className }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden space-x-10 md:flex items-center">
+        <div className="hidden space-x-8 md:flex items-center">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-foreground hover:text-primary hover-link transition-theme"
+              className="text-foreground/80 hover:text-primary hover-link transition-theme"
             >
               {link.name}
             </a>
@@ -63,13 +63,13 @@ export function Navbar({ className }: NavbarProps) {
         </div>
 
         {/* Mobile Navigation Toggle */}
-        <div className="flex md:hidden">
+        <div className="flex md:hidden items-center gap-2">
           <ThemeToggle />
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="ml-2"
+            className="relative"
           >
             {isMobileMenuOpen ? (
               <X className="h-5 w-5" />
@@ -83,13 +83,13 @@ export function Navbar({ className }: NavbarProps) {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden animate-fade-in">
-          <div className="bg-background/95 backdrop-blur-md shadow-lg">
-            <div className="space-y-6 p-6">
+          <div className="bg-background/80 backdrop-blur-lg border-t border-border/50">
+            <div className="space-y-4 p-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="block text-lg text-foreground hover:text-primary transition-theme"
+                  className="block text-lg text-foreground/80 hover:text-primary transition-theme"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
