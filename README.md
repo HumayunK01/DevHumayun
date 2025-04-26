@@ -1,73 +1,150 @@
-# Welcome to your Lovable project
+# DevHumayun Portfolio
 
-## Project info
+<div align="center">
+  <img src="public/me.png" alt="DevHumayun Logo" width="120" height="120" style="border-radius: 50%;">
+  <h3 align="center">Full-Stack & Blockchain Developer Portfolio</h3>
+  <p align="center">
+    A modern, responsive portfolio website showcasing my skills, projects, and professional experience.
+  </p>
+</div>
 
-**URL**: https://lovable.dev/projects/ed985ce0-f391-46a2-bf65-1b5d02257094
+## 📋 Overview
 
-## How can I edit this code?
+This portfolio website serves as a comprehensive showcase of my skills, projects, and professional journey as a Full-Stack and Blockchain Developer. Built with modern web technologies, it features a responsive design, smooth animations, and an intuitive user interface.
 
-There are several ways of editing your application.
+### ✨ Live Demo
 
-**Use Lovable**
+[View Live Portfolio](https://devhumayun.com) *(Replace with your actual domain when deployed)*
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ed985ce0-f391-46a2-bf65-1b5d02257094) and start prompting.
+## 🚀 Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Responsive Design**: Optimized for all devices from mobile to desktop
+- **Modern UI/UX**: Clean, professional interface with smooth animations
+- **Interactive Sections**:
+  - Hero section with animated elements
+  - About section with detailed professional information
+  - Skills showcase with categorized technologies
+  - Project portfolio with filtering capabilities
+  - Contact information with social media links
+- **Performance Optimized**: Fast loading times and smooth scrolling
+- **Accessibility Focused**: WCAG compliant for all users
+- **Dark Mode Support**: Elegant appearance in both light and dark modes
 
-**Use your preferred IDE**
+## 🛠️ Technologies Used
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Smooth Scrolling**: React Scroll
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🧰 Project Structure
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+portfolio-website/
+├── public/               # Static assets
+│   ├── icons/            # Skill and technology icons
+│   ├── me.png            # Profile image
+│   └── resume.pdf        # Downloadable resume
+├── src/
+│   ├── components/       # React components
+│   │   ├── hero-section.tsx
+│   │   ├── about-section.tsx
+│   │   ├── skills-section.tsx
+│   │   ├── projects-section.tsx
+│   │   ├── contact-section.tsx
+│   │   └── ...
+│   ├── layouts/          # Layout components
+│   ├── styles/           # Global styles
+│   └── App.tsx           # Main application component
+└── index.html            # Entry HTML file
 ```
 
-**Edit a file directly in GitHub**
+## 🚦 Getting Started
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
 
-**Use GitHub Codespaces**
+- Node.js (v16 or higher)
+- npm or yarn
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Installation
 
-## What technologies are used for this project?
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/HumayunK01/portfolio-website.git
+   cd portfolio-website
+   ```
 
-This project is built with:
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## How can I deploy this project?
+4. Open your browser and navigate to `http://localhost:5173`
 
-Simply open [Lovable](https://lovable.dev/projects/ed985ce0-f391-46a2-bf65-1b5d02257094) and click on Share -> Publish.
+## 🔧 Customization
 
-## Can I connect a custom domain to my Lovable project?
+This portfolio is designed to be easily customizable:
 
-Yes, you can!
+- **Personal Information**: Update your details in the respective component files
+- **Projects**: Modify the projects array in `projects-section.tsx`
+- **Skills**: Adjust your skills in `skills-section.tsx`
+- **Theme**: Customize colors in `tailwind.config.ts`
+- **Content**: Edit text content in each section component
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📱 Responsive Design
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The portfolio is fully responsive with breakpoints for:
+- Mobile devices (< 640px)
+- Tablets (640px - 1024px)
+- Desktops (> 1024px)
+
+## 🚢 Deployment
+
+This project can be deployed to various platforms:
+
+- **Vercel**: Recommended for easy deployment
+  ```bash
+  npm run build
+  # Then deploy using Vercel CLI or GitHub integration
+  ```
+
+- **Netlify**: Another excellent option
+  ```bash
+  npm run build
+  # Then deploy using Netlify CLI or GitHub integration
+  ```
+
+- **GitHub Pages**: For simple hosting
+  ```bash
+  npm run build
+  # Configure for GitHub Pages deployment
+  ```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📬 Contact
+
+- **Email**: humayunk.pvt@gmail.com
+- **GitHub**: [HumayunK01](https://github.com/HumayunK01)
+- **LinkedIn**: [devhumayun](https://www.linkedin.com/in/devhumayun/)
+- **Twitter**: [humayunkpvt](https://x.com/humayunkpvt)
+
+---
+
+<div align="center">
+  <p>Designed & Developed with ❤️ by Humayun Khan</p>
+</div>

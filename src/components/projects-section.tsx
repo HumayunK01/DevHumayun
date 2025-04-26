@@ -1,21 +1,27 @@
 
-import { useEffect, useRef } from "react";
-import { ArrowRight, Github, ExternalLink, Folder } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ExternalLink, Folder, Filter, Code, Layout, Server, Search, GitBranch } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+
+type ProjectCategory = "frontend" | "blockchain" | "fullstack" | "design" | "all";
 
 type Project = {
   title: string;
   description: string;
   tags: string[];
+  category: ProjectCategory;
   imageUrl?: string;
   githubUrl: string;
   liveUrl?: string;
+  featured?: boolean;
 };
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  
+  const [filter, setFilter] = useState<ProjectCategory>("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -25,126 +31,272 @@ export function ProjectsSection() {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
     };
   }, []);
-  
+
+  // Category icons are used directly in the buttons
+
   const projects: Project[] = [
     {
-      title: "Portfolio Website",
-      description: "A modern personal portfolio website with smooth animations and interactive elements.",
-      tags: ["React", "Tailwind CSS", "Framer Motion"],
-      githubUrl: "https://github.com",
-      liveUrl: "https://example.com"
+      title: "EtherEstate",
+      description: "A blockchain-based DApp to simplify real estate transactions using Ethereum smart contracts. Built with React, Solidity, Hardhat & Ethers.js, it enables wallet-based property listing, purchase, and secure on-chain ownership transfer.",
+      tags: ["React", "Tailwind CSS", "Solidity", "Web3"],
+      category: "blockchain",
+      imageUrl: "https://i.postimg.cc/yY33JvhP/image.png",
+      githubUrl: "https://github.com/HumayunK01/EtherEstate",
+      liveUrl: "https://ethestate.vercel.app/",
+      featured: true
     },
     {
-      title: "E-Commerce Dashboard",
-      description: "A comprehensive dashboard for e-commerce businesses with analytics and inventory management.",
-      tags: ["Next.js", "TypeScript", "Chart.js"],
-      githubUrl: "https://github.com"
+      title: "PawFund",
+      description: "PawFund is a decentralized crowdfunding platform for animal rescue, connecting donors with urgent cases through blockchain technology. Create campaigns, contribute ETH, and track your impact in real-time.",
+      tags: ["Next.js", "TypeScript", "Solidity", "Web3"],
+      category: "blockchain",
+      imageUrl: "https://i.postimg.cc/T3CKFFTT/homepage.png",
+      githubUrl: "https://github.com",
+      featured: true
     },
     {
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates and team features.",
-      tags: ["React", "Node.js", "Socket.io"],
-      githubUrl: "https://github.com",
-      liveUrl: "https://example.com"
+      title: "Programmers' Club",
+      description: "Programmers Club is a community-driven platform for coders to learn, collaborate, and grow. Share projects, explore coding resources, join events, and level up your skills with a supportive global network of tech enthusiasts.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase"],
+      category: "fullstack",
+      imageUrl: "https://i.postimg.cc/9Mh5H9sQ/image.png",
+      githubUrl: "https://github.com/HumayunK01/programmersclub",
+      liveUrl: "https://programmersclub.vercel.app/"
     },
     {
-      title: "Weather Forecasting Tool",
-      description: "An interactive weather forecasting application with detailed visualizations and alerts.",
-      tags: ["JavaScript", "APIs", "D3.js"],
-      githubUrl: "https://github.com",
-      liveUrl: "https://example.com"
+      title: "MineBot | AI-powered chatbot",
+      description: "This chatbot serves as a comprehensive resource, providing miners with instant access to vital information regarding workplace safety, hazard management, emergency procedures, and compliance standards.",
+      tags: ["JavaScript", "APIs", "HTML5/CSS3"],
+      category: "frontend",
+      imageUrl: "https://i.postimg.cc/B65wGVGj/image.png",
+      githubUrl: "https://minerbot.vercel.app/",
+      liveUrl: "https://minerbot.vercel.app/"
+    },
+    {
+      title: "IndiVisit | Travel Website",
+      description: "Indivisit is a vibrant tour and travel platform showcasing the beauty of India. Discover destinations, explore cultures, and plan unforgettable journeys with stunning visuals, detailed guides, and a smooth, user-friendly experience.",
+      tags: ["Solidity", "Ethereum", "Web3.js", "React"],
+      category: "frontend",
+      imageUrl: "https://i.postimg.cc/FKt0ybYp/image.png",
+      liveUrl: "https://indivisit.netlify.app/",
+      githubUrl: "https://github.com/HumayunK01/IndiVisit"
+    },
+    {
+      title: "Smart Parking Management System",
+      description: "Smart Parking Management System is an IoT-powered solution designed to optimize parking operations. Monitor availability, manage slots in real-time, and reduce congestion with an intelligent, user-friendly platform built for smart cities.",
+      tags: ["TypeScript", "SCSS", "JavaScript", "Python", "HTML5/CSS3"],
+      category: "fullstack",
+      imageUrl: "https://i.postimg.cc/QdB1RYLh/image.png",
+      githubUrl: "https://github.com/HumayunK01/Smart_Parking_Management_System",
     }
   ];
 
+  // Filter projects based on category and search query
+  const filteredProjects = projects.filter(project => {
+    const matchesCategory = filter === "all" || project.category === filter;
+    const matchesSearch = searchQuery === "" ||
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    return matchesCategory && matchesSearch;
+  });
+
   return (
-    <section id="projects" ref={sectionRef} className="section-padding bg-muted/5 reveal-container">
-      <div className="container mx-auto">
-        <div className="text-center mb-16 reveal-content">
-          <div className="inline-block">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold relative">
-              <span className="relative z-10">Featured Projects</span>
-              <span className="absolute bottom-1 left-0 w-full h-3 bg-primary/10 -z-10"></span>
-            </h2>
+    <section id="projects" ref={sectionRef} className="relative py-10 md:py-22 md:px-12 lg:px-24 overflow-hidden reveal-container">
+      {/* Local decorative elements */}
+      <div className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
+
+      <div className="container mx-auto relative z-10">
+        <div className="text-center mb-12 reveal-content">
+          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full border border-primary/20 bg-background/50 backdrop-blur-sm text-sm font-medium">
+            <span className="text-primary mr-2">✦</span>
+            My Work
+            <span className="text-primary ml-2">✦</span>
           </div>
-          <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore some of my recent work and personal projects.
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Featured <span className="gradient-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">Projects</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Discover my portfolio of web, blockchain, and full-stack development projects.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-content" style={{transitionDelay: "0.2s"}}>
-          {projects.map((project, index) => (
-            <Card key={index} className="card-hover border-border overflow-hidden bg-background/30 backdrop-blur-md hover:bg-background/40 transition-all duration-300">
-              <CardHeader className="relative">
-                {project.imageUrl ? (
-                  <div className="aspect-video rounded-md overflow-hidden">
-                    <img 
-                      src={project.imageUrl} 
-                      alt={project.title} 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="aspect-video rounded-md bg-secondary/30 backdrop-blur-sm flex items-center justify-center">
-                    <Folder size={64} className="text-muted-foreground/50" />
+
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12 reveal-content" style={{transitionDelay: "0.1s"}}>
+          <Button
+            variant={filter === "all" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setFilter("all")}
+            className="rounded-full transition-all duration-300 flex items-center gap-2"
+          >
+            <Filter className="h-4 w-4" />
+            All Projects
+          </Button>
+          <Button
+            variant={filter === "frontend" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setFilter("frontend")}
+            className="rounded-full transition-all duration-300 flex items-center gap-2"
+          >
+            <Layout className="h-4 w-4" />
+            Frontend
+          </Button>
+          <Button
+            variant={filter === "blockchain" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setFilter("blockchain")}
+            className="rounded-full transition-all duration-300 flex items-center gap-2"
+          >
+            <Server className="h-4 w-4" />
+            Blockchain
+          </Button>
+          <Button
+            variant={filter === "fullstack" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setFilter("fullstack")}
+            className="rounded-full transition-all duration-300 flex items-center gap-2"
+          >
+            <Code className="h-4 w-4" />
+            Full Stack
+          </Button>
+
+          {/* Search Input */}
+          <div className="relative ml-2">
+            <div className="flex items-center border border-primary/20 rounded-full bg-background/50 backdrop-blur-sm overflow-hidden">
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="py-2 px-4 bg-transparent outline-none text-sm w-full max-w-[150px] md:max-w-[200px]"
+              />
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Search className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Project Count */}
+        <div className="text-center mb-8 text-sm text-muted-foreground">
+          Showing {filteredProjects.length} of {projects.length} projects
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 reveal-content" style={{transitionDelay: "0.2s"}}>
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project, index) => (
+              <Card
+                key={index}
+                className="card-hover border-border overflow-hidden bg-background/30 backdrop-blur-md hover:bg-background/40 transition-all duration-300 flex flex-col h-full"
+              >
+                {project.featured && (
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-2 py-1 bg-primary/80 text-primary-foreground text-xs font-medium rounded-full">
+                      Featured
+                    </span>
                   </div>
                 )}
-              </CardHeader>
-              
-              <CardContent>
-                <h3 className="text-xl font-bold mb-2 font-serif">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="text-xs px-2 py-1 rounded-full bg-secondary/50 backdrop-blur-sm text-secondary-foreground">
-                      {tag}
+                <CardHeader className="relative p-0">
+                  {project.imageUrl ? (
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                    </div>
+                  ) : (
+                    <div className="aspect-video bg-secondary/30 backdrop-blur-sm flex items-center justify-center">
+                      <Folder size={64} className="text-muted-foreground/50" />
+                    </div>
+                  )}
+                </CardHeader>
+
+                <CardContent className="flex-grow p-6">
+                  <div className="mb-2">
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      project.category === 'frontend' ? 'bg-blue-500/10 text-blue-500' :
+                      project.category === 'blockchain' ? 'bg-green-500/10 text-green-500' :
+                      'bg-purple-500/10 text-purple-500'
+                    }`}>
+                      {project.category}
                     </span>
-                  ))}
-                </div>
-              </CardContent>
-              
-              <CardFooter className="flex justify-between">
-                <div className="flex space-x-3">
-                  <a 
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-theme"
-                  >
-                    <Github size={20} />
-                  </a>
-                  {project.liveUrl && (
-                    <a 
-                      href={project.liveUrl}
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 font-serif">{project.title}</h3>
+                  <p className="text-muted-foreground mb-4 text-sm">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, i) => (
+                      <span key={i} className="text-xs px-2 py-1 rounded-full bg-secondary/50 backdrop-blur-sm text-secondary-foreground">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
+
+                <CardFooter className="flex justify-between p-6 pt-0 mt-auto">
+                  <div className="flex space-x-3">
+                    <a
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-foreground transition-theme"
                     >
-                      <ExternalLink size={20} />
+                      <GitBranch size={20} />
                     </a>
-                  )}
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-foreground transition-theme"
+                      >
+                        <ExternalLink size={20} />
+                      </a>
+                    )}
+                  </div>
+                </CardFooter>
+              </Card>
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12">
+              <p className="text-muted-foreground">No projects found matching your criteria.</p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setFilter("all");
+                  setSearchQuery("");
+                }}
+                className="mt-4"
+              >
+                Reset Filters
+              </Button>
+            </div>
+          )}
         </div>
-        
-        <div className="mt-12 text-center reveal-content" style={{transitionDelay: "0.4s"}}>
-          <Button variant="outline" className="group">
-            View All Projects
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+
+        {/* <div className="mt-12 text-center reveal-content" style={{transitionDelay: "0.4s"}}>
+          <Button variant="outline" className="group btn-glow pulse-glow">
+            <span className="flex items-center text-white">
+              View All Projects
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </span>
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

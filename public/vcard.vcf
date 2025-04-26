@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Your;Name;;;
+FN:Your Name
+TITLE:React.js Developer
+EMAIL;type=INTERNET;type=WORK:your.email@example.com
+URL;type=WORK:https://yourwebsite.com
+URL;type=GitHub:https://github.com/yourusername
+URL;type=LinkedIn:https://linkedin.com/in/yourusername
+URL;type=Twitter:https://twitter.com/yourusername
+URL;type=Instagram:https://instagram.com/yourusername
+ADR;type=WORK:;;Your Street;Your City;Your State;Your Zip;Your Country
+END:VCARD

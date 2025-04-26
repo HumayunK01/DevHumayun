@@ -7,6 +7,7 @@ import { ProjectsSection } from "@/components/projects-section";
 import { SkillsSection } from "@/components/skills-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
+import { Background } from "@/components/background";
 
 const Index = () => {
   // Initialize scroll reveal observer
@@ -21,18 +22,23 @@ const Index = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     // Select all elements with the reveal-content class
     const revealElements = document.querySelectorAll('.reveal-content');
     revealElements.forEach(el => observer.observe(el));
-    
+
     return () => {
       revealElements.forEach(el => observer.unobserve(el));
     };
   }, []);
 
   return (
-    <div className="min-h-screen transition-theme">
+    <div className="min-h-screen transition-theme relative overflow-hidden">
+      {/* Global background that stays consistent across all sections */}
+      <div className="fixed inset-0 w-full h-full -z-30">
+        <Background />
+      </div>
+
       <Navbar />
       <HeroSection />
       <AboutSection />

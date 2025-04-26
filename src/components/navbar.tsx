@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "./theme-toggle";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, Code, Briefcase, Mail, Home, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 type NavbarProps = {
   className?: string;
@@ -13,10 +14,26 @@ type NavbarProps = {
 export function Navbar({ className }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+
+      // Determine which section is currently in view
+      const sections = ["hero", "about", "projects", "skills", "contact"];
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // If the section is in the viewport (with some buffer for navbar)
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -24,42 +41,58 @@ export function Navbar({ className }: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Blog", href: "#blog" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#hero", icon: Home },
+    { name: "About", href: "#about", icon: User },
+    { name: "Projects", href: "#projects", icon: Briefcase },
+    { name: "Skills", href: "#skills", icon: Code },
+    { name: "Contact", href: "#contact", icon: Mail },
   ];
 
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-theme",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-background/60 backdrop-blur-lg border-b border-border/50 shadow-sm"
-          : "bg-transparent",
+          ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-sm py-2"
+          : "bg-transparent py-4",
         className
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4">
         <Link
           to="/"
-          className="text-2xl font-bold text-foreground font-serif transition-theme"
+          className="flex items-center gap-2 text-xl md:text-2xl font-bold font-serif transition-theme"
         >
-          <span className="text-primary">Portfolio</span>
+          <div className="relative w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+            <span className="text-primary">H</span>
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-pulse" />
+          </div>
+          <span className="text-primary">DevHumayun</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden space-x-8 md:flex items-center">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-foreground/80 hover:text-primary hover-link transition-theme"
-            >
-              {link.name}
-            </a>
-          ))}
-          <ThemeToggle />
+        <div className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.substring(1);
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200",
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-foreground/70 hover:text-primary hover:bg-primary/5"
+                )}
+              >
+                <link.icon className="h-4 w-4" />
+                {link.name}
+              </a>
+            );
+          })}
+          <div className="ml-2 pl-2 border-l border-border/50">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Mobile Navigation Toggle */}
@@ -82,22 +115,48 @@ export function Navbar({ className }: NavbarProps) {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden animate-fade-in">
-          <div className="bg-background/80 backdrop-blur-lg border-t border-border/50">
-            <div className="space-y-4 p-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="block text-lg text-foreground/80 hover:text-primary transition-theme"
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+          className="md:hidden"
+        >
+          <div className="bg-background/95 backdrop-blur-lg border-t border-border/50 shadow-lg">
+            <div className="p-4 max-h-[70vh] overflow-y-auto">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={cn(
+                      "flex items-center gap-3 px-4 py-3 mb-2 rounded-lg transition-all",
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground/70 hover:text-primary hover:bg-primary/5"
+                    )}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <link.icon className="h-5 w-5" />
+                    <span className="font-medium">{link.name}</span>
+                    {isActive && <ChevronRight className="h-4 w-4 ml-auto" />}
+                  </a>
+                );
+              })}
+
+              <div className="mt-6 pt-6 border-t border-border/50">
+                <Button
+                  variant="outline"
+                  className="w-full justify-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.name}
-                </a>
-              ))}
+                  Close Menu
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
     </nav>
   );
