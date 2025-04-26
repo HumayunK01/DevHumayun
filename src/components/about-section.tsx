@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { User, Code, Briefcase, GraduationCap, Award, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function AboutSection() {
+function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -192,3 +192,5 @@ export function AboutSection() {
     </section>
   );
 }
+
+export default AboutSection;

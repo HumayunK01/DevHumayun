@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function SkillsSection() {
+function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeCategory, setActiveCategory] = useState("all");
   const [showAllSkills, setShowAllSkills] = useState(false);
@@ -380,3 +380,5 @@ export function SkillsSection() {
     </section>
   );
 }
+
+export default SkillsSection;

@@ -17,7 +17,7 @@ type Project = {
   featured?: boolean;
 };
 
-export function ProjectsSection() {
+function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [filter, setFilter] = useState<ProjectCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -301,3 +301,5 @@ export function ProjectsSection() {
     </section>
   );
 }
+
+export default ProjectsSection;

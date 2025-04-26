@@ -14,7 +14,7 @@ This portfolio website serves as a comprehensive showcase of my skills, projects
 
 ### ✨ Live Demo
 
-[View Live Portfolio](https://devhumayun.com) *(Replace with your actual domain when deployed)*
+[View Live Portfolio](https://devhumayun.vercel.app/)
 
 ## 🚀 Features
 

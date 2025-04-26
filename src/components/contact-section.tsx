@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-export function ContactSection() {
+function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [copySuccess, setCopySuccess] = useState<string | null>(null);
 
@@ -296,3 +296,5 @@ export function ContactSection() {
     </section>
   );
 }
+
+export default ContactSection;

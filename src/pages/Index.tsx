@@ -1,13 +1,15 @@
 
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
-import { AboutSection } from "@/components/about-section";
-import { ProjectsSection } from "@/components/projects-section";
-import { SkillsSection } from "@/components/skills-section";
-import { ContactSection } from "@/components/contact-section";
-import { Footer } from "@/components/footer";
 import { Background } from "@/components/background";
+
+// Lazy load larger components to improve initial load performance
+const AboutSection = lazy(() => import("@/components/about-section"));
+const ProjectsSection = lazy(() => import("@/components/projects-section"));
+const SkillsSection = lazy(() => import("@/components/skills-section"));
+const ContactSection = lazy(() => import("@/components/contact-section"));
+const Footer = lazy(() => import("@/components/footer"));
 
 const Index = () => {
   // Initialize scroll reveal observer
@@ -41,11 +43,27 @@ const Index = () => {
 
       <Navbar />
       <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <ContactSection />
-      <Footer />
+
+      {/* Wrap lazy-loaded components in Suspense with fallback */}
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <AboutSection />
+      </Suspense>
+
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <ProjectsSection />
+      </Suspense>
+
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <SkillsSection />
+      </Suspense>
+
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <ContactSection />
+      </Suspense>
+
+      <Suspense fallback={<div className="h-40 flex items-center justify-center">Loading...</div>}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

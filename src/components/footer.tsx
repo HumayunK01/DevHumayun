@@ -3,7 +3,7 @@ import { Github, Linkedin, Twitter, Instagram, Mail, MapPin, Heart, ArrowUp } fr
 import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 
-export function Footer() {
+function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -103,3 +103,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export default Footer;
