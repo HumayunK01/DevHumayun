@@ -18,14 +18,14 @@ This portfolio website serves as a comprehensive showcase of my skills, projects
 This diagram illustrates how users navigate through the portfolio:
 
 <div align="center">
-  <img src="public/userflowdiagram.svg" alt="User Flow Diagram" width="100%">
+  <img src="public/userflowdiagram.png" alt="User Flow Diagram" width="100%">
 </div>
 
 ### Use Case Diagram
 This diagram shows the main interactions available to visitors:
 
 <div align="center">
-  <img src="public/usecasediagram.svg" alt="Use Case Diagram" width="100%">
+  <img src="public/usecasediagram.png" alt="Use Case Diagram" width="100%">
 </div>
 
 ### ✨ Live Demo
