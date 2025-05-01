@@ -70,6 +70,7 @@
 @layer base {
   * {
     @apply border-border scroll-smooth;
+    cursor: none !important;
   }
 
   body {
@@ -176,5 +177,25 @@
 
   .perspective-1000 {
     perspective: 1000px;
+  }
+
+  /* Custom cursor styles */
+  .cursor-default {
+    cursor: url('/cursors/default.svg') 12 12, auto !important;
+  }
+
+  .cursor-pointer {
+    cursor: url('/cursors/pointer.svg') 12 12, pointer !important;
+  }
+
+  .cursor-click {
+    cursor: url('/cursors/click.svg') 12 12, pointer !important;
+  }
+
+  /* Media query to disable custom cursor on mobile/touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
   }
 }
