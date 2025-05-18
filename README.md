@@ -89,8 +89,8 @@ portfolio-website/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/HumayunK01/portfolio-website.git
-   cd portfolio-website
+   git clone https://github.com/HumayunK01/DevHumayun.git
+   cd DevHumayun
    ```
 
 2. Install dependencies:
