@@ -41,7 +41,7 @@ function Footer() {
             </div>
             <div className="flex items-center space-x-2 text-sm text-muted-foreground justify-center md:justify-start">
               <MapPin className="h-4 w-4" />
-              <span>Mumbra, India</span>
+              <span>Thane, India</span>
             </div>
           </div>
 
