@@ -144,7 +144,7 @@ function ContactSection() {
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground">Location</h4>
-                    <p className="font-medium">Mumbra, India</p>
+                    <p className="font-medium">Thane, India</p>
                   </div>
                 </div>
 
