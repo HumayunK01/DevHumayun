@@ -47,6 +47,26 @@ function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "PS Foundation",
+      description: "A modern React website for a non-profit organization showcasing sustainable development projects, mission, and impact. Features interactive components, responsive design, and donation/volunteering opportunities.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
+      category: "frontend",
+      imageUrl: "https://i.postimg.cc/J7pHJqwp/de605381-d6ee-49a9-a92d-9f3adc7c0cc6.png",
+      githubUrl: "",
+      liveUrl: "https://psfoundationforyou.vercel.app/",
+      featured: true
+    },
+    {
+      title: "Shahi Durbar",
+      description: "Shahi Durbar - A modern web application showcasing premium Indian desserts and ice creams. Built with React, TypeScript, and Tailwind CSS, featuring responsive design, smooth animations, and an elegant UI that highlights the brand's royal heritage since 2011.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
+      category: "frontend",
+      imageUrl: "https://i.postimg.cc/PJ7q7STh/faa103ee-42c3-4d0b-947a-29c8e107981f.png",
+      githubUrl: "",
+      liveUrl: "https://shahidurbar.vercel.app/",
+      featured: true
+    },
+    {
       title: "EtherEstate",
       description: "A blockchain-based DApp to simplify real estate transactions using Ethereum smart contracts. Built with React, Solidity, Hardhat & Ethers.js, it enables wallet-based property listing, purchase, and secure on-chain ownership transfer.",
       tags: ["React", "Tailwind CSS", "Solidity", "Web3"],
@@ -83,23 +103,23 @@ function ProjectsSection() {
       githubUrl: "https://minerbot.vercel.app/",
       liveUrl: "https://minerbot.vercel.app/"
     },
-    {
-      title: "IndiVisit | Travel Website",
-      description: "Indivisit is a vibrant tour and travel platform showcasing the beauty of India. Discover destinations, explore cultures, and plan unforgettable journeys with stunning visuals, detailed guides, and a smooth, user-friendly experience.",
-      tags: ["Solidity", "Ethereum", "Web3.js", "React"],
-      category: "frontend",
-      imageUrl: "https://i.postimg.cc/FKt0ybYp/image.png",
-      liveUrl: "https://indivisit.netlify.app/",
-      githubUrl: "https://github.com/HumayunK01/IndiVisit"
-    },
-    {
-      title: "Smart Parking Management System",
-      description: "Smart Parking Management System is an IoT-powered solution designed to optimize parking operations. Monitor availability, manage slots in real-time, and reduce congestion with an intelligent, user-friendly platform built for smart cities.",
-      tags: ["TypeScript", "SCSS", "JavaScript", "Python", "HTML5/CSS3"],
-      category: "fullstack",
-      imageUrl: "https://i.postimg.cc/QdB1RYLh/image.png",
-      githubUrl: "https://github.com/HumayunK01/Smart_Parking_Management_System",
-    }
+    // {
+    //   title: "IndiVisit | Travel Website",
+    //   description: "Indivisit is a vibrant tour and travel platform showcasing the beauty of India. Discover destinations, explore cultures, and plan unforgettable journeys with stunning visuals, detailed guides, and a smooth, user-friendly experience.",
+    //   tags: ["Solidity", "Ethereum", "Web3.js", "React"],
+    //   category: "frontend",
+    //   imageUrl: "https://i.postimg.cc/FKt0ybYp/image.png",
+    //   liveUrl: "https://indivisit.netlify.app/",
+    //   githubUrl: "https://github.com/HumayunK01/IndiVisit"
+    // },
+    // {
+    //   title: "Smart Parking Management System",
+    //   description: "Smart Parking Management System is an IoT-powered solution designed to optimize parking operations. Monitor availability, manage slots in real-time, and reduce congestion with an intelligent, user-friendly platform built for smart cities.",
+    //   tags: ["TypeScript", "SCSS", "JavaScript", "Python", "HTML5/CSS3"],
+    //   category: "fullstack",
+    //   imageUrl: "https://i.postimg.cc/QdB1RYLh/image.png",
+    //   githubUrl: "https://github.com/HumayunK01/Smart_Parking_Management_System",
+    // }
   ];
 
   // Filter projects based on category and search query

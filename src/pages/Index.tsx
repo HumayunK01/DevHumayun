@@ -1,9 +1,7 @@
-
 import { useEffect, lazy, Suspense } from "react";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { Background } from "@/components/background";
-import { CustomCursor } from "@/components/custom-cursor";
 
 // Lazy load larger components to improve initial load performance
 const AboutSection = lazy(() => import("@/components/about-section"));
@@ -41,9 +39,6 @@ const Index = () => {
       <div className="fixed inset-0 w-full h-full -z-30">
         <Background />
       </div>
-
-      {/* Custom cursor */}
-      <CustomCursor />
 
       <Navbar />
       <HeroSection />
