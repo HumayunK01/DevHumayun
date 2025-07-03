@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ExternalLink, Folder, Filter, Code, Layout, Server, Search, GitBranch } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -51,7 +50,7 @@ function ProjectsSection() {
       description: "A modern React website for a non-profit organization showcasing sustainable development projects, mission, and impact. Features interactive components, responsive design, and donation/volunteering opportunities.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
       category: "frontend",
-      imageUrl: "https://i.postimg.cc/J7pHJqwp/de605381-d6ee-49a9-a92d-9f3adc7c0cc6.png",
+      imageUrl: "/projects/psfoundation.webp",
       githubUrl: "",
       liveUrl: "https://psfoundationforyou.vercel.app/",
       featured: true
@@ -61,7 +60,7 @@ function ProjectsSection() {
       description: "Shahi Durbar - A modern web application showcasing premium Indian desserts and ice creams. Built with React, TypeScript, and Tailwind CSS, featuring responsive design, smooth animations, and an elegant UI that highlights the brand's royal heritage since 2011.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
       category: "frontend",
-      imageUrl: "https://i.postimg.cc/PJ7q7STh/faa103ee-42c3-4d0b-947a-29c8e107981f.png",
+      imageUrl: "/projects/shahidurbar.webp",
       githubUrl: "",
       liveUrl: "https://shahidurbar.vercel.app/",
       featured: true
@@ -71,7 +70,7 @@ function ProjectsSection() {
       description: "A blockchain-based DApp to simplify real estate transactions using Ethereum smart contracts. Built with React, Solidity, Hardhat & Ethers.js, it enables wallet-based property listing, purchase, and secure on-chain ownership transfer.",
       tags: ["React", "Tailwind CSS", "Solidity", "Web3"],
       category: "blockchain",
-      imageUrl: "https://i.postimg.cc/yY33JvhP/image.png",
+      imageUrl: "/projects/etherestate.webp",
       githubUrl: "https://github.com/HumayunK01/EtherEstate",
       liveUrl: "https://ethestate.vercel.app/",
       featured: true
@@ -81,7 +80,7 @@ function ProjectsSection() {
       description: "PawFund is a decentralized crowdfunding platform for animal rescue, connecting donors with urgent cases through blockchain technology. Create campaigns, contribute ETH, and track your impact in real-time.",
       tags: ["Next.js", "TypeScript", "Solidity", "Web3"],
       category: "blockchain",
-      imageUrl: "https://i.postimg.cc/T3CKFFTT/homepage.png",
+      imageUrl: "/projects/pawfund.webp",
       githubUrl: "https://github.com",
       featured: true
     },
@@ -90,7 +89,7 @@ function ProjectsSection() {
       description: "Programmers Club is a community-driven platform for coders to learn, collaborate, and grow. Share projects, explore coding resources, join events, and level up your skills with a supportive global network of tech enthusiasts.",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase"],
       category: "fullstack",
-      imageUrl: "https://i.postimg.cc/9Mh5H9sQ/image.png",
+      imageUrl: "/projects/programmersclub.webp",
       githubUrl: "https://github.com/HumayunK01/programmersclub",
       liveUrl: "https://programmersclub.vercel.app/"
     },
@@ -99,27 +98,10 @@ function ProjectsSection() {
       description: "This chatbot serves as a comprehensive resource, providing miners with instant access to vital information regarding workplace safety, hazard management, emergency procedures, and compliance standards.",
       tags: ["JavaScript", "APIs", "HTML5/CSS3"],
       category: "frontend",
-      imageUrl: "https://i.postimg.cc/B65wGVGj/image.png",
+      imageUrl: "/projects/minebot.webp",
       githubUrl: "https://minerbot.vercel.app/",
       liveUrl: "https://minerbot.vercel.app/"
-    },
-    // {
-    //   title: "IndiVisit | Travel Website",
-    //   description: "Indivisit is a vibrant tour and travel platform showcasing the beauty of India. Discover destinations, explore cultures, and plan unforgettable journeys with stunning visuals, detailed guides, and a smooth, user-friendly experience.",
-    //   tags: ["Solidity", "Ethereum", "Web3.js", "React"],
-    //   category: "frontend",
-    //   imageUrl: "https://i.postimg.cc/FKt0ybYp/image.png",
-    //   liveUrl: "https://indivisit.netlify.app/",
-    //   githubUrl: "https://github.com/HumayunK01/IndiVisit"
-    // },
-    // {
-    //   title: "Smart Parking Management System",
-    //   description: "Smart Parking Management System is an IoT-powered solution designed to optimize parking operations. Monitor availability, manage slots in real-time, and reduce congestion with an intelligent, user-friendly platform built for smart cities.",
-    //   tags: ["TypeScript", "SCSS", "JavaScript", "Python", "HTML5/CSS3"],
-    //   category: "fullstack",
-    //   imageUrl: "https://i.postimg.cc/QdB1RYLh/image.png",
-    //   githubUrl: "https://github.com/HumayunK01/Smart_Parking_Management_System",
-    // }
+    }
   ];
 
   // Filter projects based on category and search query
@@ -136,8 +118,8 @@ function ProjectsSection() {
   return (
     <section id="projects" ref={sectionRef} className="relative py-10 md:py-22 md:px-12 lg:px-24 overflow-hidden reveal-container">
       {/* Local decorative elements */}
-      <div className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
+      <div className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" aria-hidden="true" />
+      <div className="absolute bottom-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" aria-hidden="true" />
 
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-12 reveal-content">

@@ -2,6 +2,8 @@ import { useEffect, lazy, Suspense } from "react";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { Background } from "@/components/background";
+import { BackToTopButton } from "@/components/back-to-top-button";
+import { SocialSidebar } from "@/components/social-sidebar";
 
 // Lazy load larger components to improve initial load performance
 const AboutSection = lazy(() => import("@/components/about-section"));
@@ -63,6 +65,9 @@ const Index = () => {
       <Suspense fallback={<div className="h-40 flex items-center justify-center">Loading...</div>}>
         <Footer />
       </Suspense>
+
+      <SocialSidebar />
+      <BackToTopButton />
     </div>
   );
 };

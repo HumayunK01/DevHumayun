@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Code, Palette, ExternalLink } from "lucide-react";
@@ -15,8 +14,8 @@ export function HeroSection() {
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-20 mt-2 md:mt-0">
       {/* Decorative Elements */}
-      <div className="absolute top-32 md:top-24 right-[20%] lg:right-[25%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{animationDelay: '0.5s'}} />
-      <div className="absolute bottom-32 left-[20%] lg:left-[25%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{animationDelay: '1.5s'}} />
+      <div className="absolute top-32 md:top-24 right-[20%] lg:right-[25%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{animationDelay: '0.5s'}} aria-hidden="true" />
+      <div className="absolute bottom-32 left-[20%] lg:left-[25%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{animationDelay: '1.5s'}} aria-hidden="true" />
 
       <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10 text-center md:text-left">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
@@ -104,9 +103,9 @@ export function HeroSection() {
           <div className={`transform ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{animationDelay: '0.3s'}}>
             <div className="relative aspect-square max-w-md mx-auto">
               {/* Decorative elements around the card */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl pulse-glow" />
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '1.5s'}} />
-              <div className="absolute top-1/2 -right-6 w-12 h-12 bg-pink-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '2s'}} />
+              <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl pulse-glow" aria-hidden="true" />
+              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '1.5s'}} aria-hidden="true" />
+              <div className="absolute top-1/2 -right-6 w-12 h-12 bg-pink-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '2s'}} aria-hidden="true" />
 
               {/* Main card with improved styling */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 backdrop-blur-sm animate-float" />

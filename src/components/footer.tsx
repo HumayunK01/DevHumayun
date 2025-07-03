@@ -1,7 +1,5 @@
-
-import { Github, Linkedin, Twitter, Instagram, Mail, MapPin, Heart, ArrowUp } from "lucide-react";
+import { Github, Linkedin, Twitter, Instagram, Mail, MapPin, Heart, Home, User, Briefcase, Code, Mail as MailIcon } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
-import { motion } from "framer-motion";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,21 +12,21 @@ function Footer() {
   ];
 
   const quickLinks = [
-    { name: "Home", to: "hero" },
-    { name: "About", to: "about" },
-    { name: "Projects", to: "projects" },
-    { name: "Skills", to: "skills" },
-    { name: "Contact", to: "contact" },
+    { name: "Home", to: "hero", icon: Home },
+    { name: "About", to: "about", icon: User },
+    { name: "Projects", to: "projects", icon: Briefcase },
+    { name: "Skills", to: "skills", icon: Code },
+    { name: "Contact", to: "contact", icon: MailIcon },
   ];
 
   return (
     <footer className="relative bg-background border-t border-border/30 pt-16 pb-10 overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" aria-hidden="true" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" aria-hidden="true" />
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-12 mx-auto max-w-6xl">
+      <div className="container mx-auto px-6 md:px-8 lg:px-18 max-w-full relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-12 mx-auto max-w-7xl">
           {/* Brand column */}
           <div className="space-y-4 text-center md:text-left">
             <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">DevHumayun</h3>
@@ -57,7 +55,7 @@ function Footer() {
                     duration={800}
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 cursor-pointer flex items-center justify-center md:justify-start"
                   >
-                    <span className="mr-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">•</span>
+                    <link.icon className="h-4 w-4 mr-2" />
                     {link.name}
                   </ScrollLink>
                 </li>
@@ -86,7 +84,7 @@ function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-border/30 pt-8 mt-8 max-w-6xl mx-auto">
+        <div className="border-t border-border/30 pt-8 mt-8 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground text-center md:text-left">
               © {currentYear} DevHumayun. All rights reserved.
@@ -94,7 +92,7 @@ function Footer() {
 
             <div className="flex items-center mt-4 md:mt-0">
               <p className="text-sm text-muted-foreground flex items-center">
-                Made with <Heart className="h-3 w-3 mx-1 text-red-500" /> using Next.js
+                Made with <Heart className="h-3 w-3 mx-1 text-red-500" /> by Humayun
               </p>
             </div>
           </div>
