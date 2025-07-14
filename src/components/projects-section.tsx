@@ -62,7 +62,7 @@ function ProjectsSection() {
       category: "frontend",
       imageUrl: "/projects/shahidurbar.webp",
       githubUrl: "",
-      liveUrl: "https://shahidurbar.vercel.app/",
+      liveUrl: "https://shahidurbar.com/",
       featured: true
     },
     {
