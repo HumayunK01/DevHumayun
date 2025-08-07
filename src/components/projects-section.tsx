@@ -46,6 +46,16 @@ function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "WEP | Wellness Eligibility Program",
+      description: "Modern web platform offering Medicare-covered genetic testing for eligible beneficiaries. Features at-home cheek swab collection, comprehensive health screening programs, and physician-reviewed results with no upfront cost for qualified individuals.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
+      category: "fullstack",
+      imageUrl: "/projects/wep.webp",
+      githubUrl: "",
+      liveUrl: "https://www.wellnesseligibilityprogram.com/",
+      featured: true
+    },
+    {
       title: "PS Foundation",
       description: "A modern React website for a non-profit organization showcasing sustainable development projects, mission, and impact. Features interactive components, responsive design, and donation/volunteering opportunities.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
@@ -93,15 +103,6 @@ function ProjectsSection() {
       githubUrl: "https://github.com/HumayunK01/programmersclub",
       liveUrl: "https://programmersclub.vercel.app/"
     },
-    {
-      title: "MineBot | AI-powered chatbot",
-      description: "This chatbot serves as a comprehensive resource, providing miners with instant access to vital information regarding workplace safety, hazard management, emergency procedures, and compliance standards.",
-      tags: ["JavaScript", "APIs", "HTML5/CSS3"],
-      category: "frontend",
-      imageUrl: "/projects/minebot.webp",
-      githubUrl: "https://minerbot.vercel.app/",
-      liveUrl: "https://minerbot.vercel.app/"
-    }
   ];
 
   // Filter projects based on category and search query
