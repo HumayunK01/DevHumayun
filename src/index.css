@@ -68,12 +68,17 @@
 
 @layer base {
   * {
-    @apply border-border scroll-smooth;
+    @apply border-border;
     /* cursor: none !important; */
+    /* Use will-change for elements that will change */
+    will-change-scroll: auto;
   }
 
   body {
     @apply bg-background text-foreground font-sans;
+    /* Optimize for smooth scrolling */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -84,6 +89,9 @@
   html {
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+    /* Optimize scrolling performance */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
   
   /* Webkit browsers */
@@ -153,6 +161,8 @@
 
   .reveal-content {
     @apply translate-y-12 opacity-0 transition-all duration-500;
+    /* Optimize for performance */
+    will-change: transform, opacity;
   }
 
   .reveal-active .reveal-content {
@@ -161,10 +171,17 @@
 
   .card-hover {
     @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
+    /* Optimize for performance */
+    will-change: transform;
   }
 
   .circle-bg {
-    @apply absolute -z-10 rounded-full blur-3xl opacity-20 dark:opacity-10 transition-all duration-500;
+    @apply absolute -z-10 rounded-full blur-3xl opacity-20 dark:opacity-10;
+    /* Optimize for performance */
+    will-change: transform;
+    /* Use transform instead of changing position for better performance */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
   .glass-card {
@@ -176,6 +193,8 @@
     background-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
     background-size: 200% auto;
     animation: gradient-shift 8s ease infinite;
+    /* Optimize for performance */
+    will-change: background-position;
   }
 
   .btn-glow {
@@ -188,6 +207,8 @@
     background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
     background-size: 200% 200%;
     animation: gradient-shift 5s ease infinite;
+    /* Optimize for performance */
+    will-change: opacity;
   }
 
   .btn-glow:hover::after {
@@ -221,6 +242,8 @@
 
   .pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
+    /* Optimize for performance */
+    will-change: box-shadow;
   }
 
   .perspective-1000 {

@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronUp } from "lucide-react";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { rafThrottle } from "@/lib/scroll-utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function BackToTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
+    const onScroll = rafThrottle(() => {
       setVisible(window.scrollY > 300);
-    };
-    window.addEventListener("scroll", onScroll);
+    });
+    
+    // Use passive event listener for better scroll performance
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleClick = () => {
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -41,7 +44,7 @@ export function BackToTopButton() {
               "xs:w-9 xs:h-9 xs:right-2 xs:bottom-2 xs:p-0"
             )}
             style={{ boxShadow: "0 4px 32px 0 rgba(139,92,246,0.10)" }}
-            onClick={handleClick}
+            onClick={scrollToTop}
             aria-label="Back to Top"
           >
             <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />

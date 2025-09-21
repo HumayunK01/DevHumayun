@@ -46,7 +46,7 @@ function AboutSection() {
     <section id="about" ref={sectionRef} className="relative py-10 md:py-32 lg:px-24 overflow-hidden reveal-container">
       {/* We're using the global background component now */}
 
-      {/* Floating decorative elements */}
+      {/* Floating decorative elements - reduced for better performance */}
       <div className="absolute top-32 left-[15%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{animationDelay: '0.7s'}} aria-hidden="true" />
       <div className="absolute bottom-32 right-[10%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{animationDelay: '1.2s'}} aria-hidden="true" />
 
@@ -66,11 +66,16 @@ function AboutSection() {
           <div className="reveal-content" style={{transitionDelay: "0.1s"}}>
             <div className="relative">
               <div className="aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border border-primary/20 bg-background/50 backdrop-blur-sm shadow-lg">
-                <img
-                  src="/realme.png"
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
+                <picture>
+                  <source srcSet="/realme.webp" type="image/webp" />
+                  <source srcSet="/realme.png" type="image/png" />
+                  <img
+                    src="/realme.webp"
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </picture>
                 {/* Decorative elements - matching hero section style */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl pulse-glow" aria-hidden="true" />
                 <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '1.5s'}} aria-hidden="true" />

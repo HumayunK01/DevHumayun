@@ -70,9 +70,9 @@ function ProjectsSection() {
       description: "Shahi Durbar - A modern web application showcasing premium Indian desserts and ice creams. Built with React, TypeScript, and Tailwind CSS, featuring responsive design, smooth animations, and an elegant UI that highlights the brand's royal heritage since 2011.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
       category: "frontend",
-      imageUrl: "/projects/shahidurbar.webp",
+      imageUrl: "/projects/shahidurbar.png",
       githubUrl: "",
-      liveUrl: "https://shahidurbar.com/",
+      liveUrl: "https://shahidurbar.vercel.app",
       featured: true
     },
     {
@@ -86,12 +86,13 @@ function ProjectsSection() {
       featured: true
     },
     {
-      title: "PawFund",
-      description: "PawFund is a decentralized crowdfunding platform for animal rescue, connecting donors with urgent cases through blockchain technology. Create campaigns, contribute ETH, and track your impact in real-time.",
-      tags: ["Next.js", "TypeScript", "Solidity", "Web3"],
-      category: "blockchain",
-      imageUrl: "/projects/pawfund.webp",
+      title: "PhishEye",
+      description: "A comprehensive, modern web application for detecting and analyzing potential scam and phishing websites using advanced OSINT (Open Source Intelligence) techniques.",
+      tags: ["Next.js", "TypeScript", "OSINT", "API"],
+      category: "fullstack",
+      imageUrl: "/projects/phisheye.png",
       githubUrl: "https://github.com",
+      liveUrl: "https://phisheye.vercel.app/",
       featured: true
     },
     {
@@ -118,7 +119,7 @@ function ProjectsSection() {
 
   return (
     <section id="projects" ref={sectionRef} className="relative py-10 md:py-22 md:px-12 lg:px-24 overflow-hidden reveal-container">
-      {/* Local decorative elements */}
+      {/* Local decorative elements - reduced for better performance */}
       <div className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" aria-hidden="true" />
       <div className="absolute bottom-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" aria-hidden="true" />
 
@@ -220,6 +221,7 @@ function ProjectsSection() {
                         src={project.imageUrl}
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                        loading="lazy"
                       />
                     </div>
                   ) : (

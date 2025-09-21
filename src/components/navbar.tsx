@@ -6,6 +6,7 @@ import { ThemeToggle } from "./theme-toggle";
 import { Menu, X, User, Code, Briefcase, Mail, Home, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { rafThrottle } from "@/lib/scroll-utils";
 
 type NavbarProps = {
   className?: string;
@@ -17,7 +18,7 @@ export function Navbar({ className }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = rafThrottle(() => {
       setIsScrolled(window.scrollY > 10);
 
       // Determine which section is currently in view
@@ -34,9 +35,10 @@ export function Navbar({ className }: NavbarProps) {
           }
         }
       }
-    };
+    });
 
-    window.addEventListener("scroll", handleScroll);
+    // Use passive event listener for better scroll performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

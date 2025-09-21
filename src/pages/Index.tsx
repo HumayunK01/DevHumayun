@@ -15,15 +15,21 @@ const Footer = lazy(() => import("@/components/footer"));
 const Index = () => {
   // Initialize scroll reveal observer
   useEffect(() => {
+    // Use a more efficient IntersectionObserver configuration
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('reveal-active');
+            // Unobserve elements after they've been revealed to reduce performance impact
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px' // Trigger slightly before elements come into view
+      }
     );
 
     // Select all elements with the reveal-content class

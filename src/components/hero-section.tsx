@@ -13,7 +13,7 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-20 mt-2 md:mt-0">
-      {/* Decorative Elements */}
+      {/* Decorative Elements - reduced for better performance */}
       <div className="absolute top-32 md:top-24 right-[20%] lg:right-[25%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{animationDelay: '0.5s'}} aria-hidden="true" />
       <div className="absolute bottom-32 left-[20%] lg:left-[25%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{animationDelay: '1.5s'}} aria-hidden="true" />
 
@@ -111,12 +111,17 @@ export function HeroSection() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 backdrop-blur-sm animate-float" />
               <div className="absolute inset-4 rounded-xl bg-background/80 glass-card flex items-center justify-center p-8 overflow-hidden border border-white/10 shadow-lg">
                 <div className="relative">
-                  <img
-                    src="/me.png"
-                    alt="Profile"
-                    className="w-58 h-58 object-cover rounded-full animate-float"
-                    style={{animationDelay: '1s'}}
-                  />
+                  <picture>
+                    <source srcSet="/me.webp" type="image/webp" />
+                    <source srcSet="/me.png" type="image/png" />
+                    <img
+                      src="/me.webp"
+                      alt="Profile"
+                      className="w-58 h-58 object-cover rounded-full animate-float"
+                      style={{animationDelay: '1s'}}
+                      loading="eager"
+                    />
+                  </picture>
                   <div className="absolute -bottom-4 -right-4 text-sm font-medium bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
                     Hello!
                   </div>

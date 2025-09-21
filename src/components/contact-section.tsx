@@ -1,16 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
-import {
-  Mail,
-  Github,
-  Linkedin,
-  Twitter,
-  Instagram,
-  MapPin,
-  Calendar,
-  Copy,
-  CheckCircle
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, User, MessageSquare, AtSign, Github, Linkedin, Twitter, Instagram, Copy, CheckCircle, Calendar } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { rafThrottle } from "@/lib/scroll-utils";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -23,9 +17,14 @@ function ContactSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("reveal-active");
+          // Unobserve after revealing to reduce performance impact
+          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
     );
 
     if (sectionRef.current) {
@@ -51,7 +50,7 @@ function ContactSection() {
       name: "Email",
       icon: <Mail className="h-5 w-5" />,
       url: "mailto:humayunk.pvt@gmail.com",
-      color: "hover:bg-gray-800 hover:text-whitee"
+      color: "hover:bg-gray-800 hover:text-white"
     },
     {
       name: "GitHub",

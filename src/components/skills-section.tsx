@@ -123,10 +123,9 @@ function SkillsSection() {
 
   return (
     <section id="skills" ref={sectionRef} className="relative py-10 md:py-28 md:px-12 lg:px-24 overflow-hidden reveal-container">
-      {/* Local decorative elements */}
+      {/* Local decorative elements - reduced for better performance */}
       <div className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" aria-hidden="true" />
       <div className="absolute bottom-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="absolute top-1/3 left-1/4 w-24 h-24 bg-teal-500/10 rounded-full blur-3xl" aria-hidden="true" />
 
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-12 reveal-content">
@@ -338,6 +337,7 @@ function SkillsSection() {
                                     onError={(e) => {
                                       e.currentTarget.src = "/icons/placeholder.svg";
                                     }}
+                                    loading="lazy"
                                   />
                                 </div>
                                 {/* Show skill name below icon for all screen sizes */}

@@ -48,6 +48,24 @@ export default defineConfig(({ mode }) => ({
           'vendor-animation': [
             'framer-motion',
             'lucide-react'
+          ],
+          // Group form-related libraries
+          'vendor-form': [
+            'react-hook-form',
+            '@hookform/resolvers',
+            'zod'
+          ],
+          // Group data fetching libraries
+          'vendor-data': [
+            '@tanstack/react-query'
+          ],
+          // Group charting libraries
+          'vendor-chart': [
+            'recharts'
+          ],
+          // Group date utilities
+          'vendor-date': [
+            'date-fns'
           ]
         }
       }
