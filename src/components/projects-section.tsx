@@ -46,6 +46,16 @@ function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "Asmeera Stays Official Website",
+      description: "Asmeera Stays offers an exclusive collection of luxury villas across Mumbai, Lonavala, Karjat, Igatpuri, and Mahabaleshwar. Our platform provides a seamless booking experience for discerning travelers seeking premium accommodations with unparalleled service.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
+      category: "frontend",
+      imageUrl: "/projects/asmeera.webp",
+      githubUrl: "",
+      liveUrl: "https://asmeerastays.vercel.app/",
+      featured: true
+    },
+    {
       title: "WEP | Wellness Eligibility Program",
       description: "Modern web platform offering Medicare-covered genetic testing for eligible beneficiaries. Features at-home cheek swab collection, comprehensive health screening programs, and physician-reviewed results with no upfront cost for qualified individuals.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
@@ -83,16 +93,6 @@ function ProjectsSection() {
       imageUrl: "/projects/etherestate.webp",
       githubUrl: "https://github.com/HumayunK01/EtherEstate",
       liveUrl: "https://ethestate.vercel.app/",
-      featured: true
-    },
-    {
-      title: "PhishEye",
-      description: "A comprehensive, modern web application for detecting and analyzing potential scam and phishing websites using advanced OSINT (Open Source Intelligence) techniques.",
-      tags: ["Next.js", "TypeScript", "OSINT", "API"],
-      category: "fullstack",
-      imageUrl: "/projects/phisheye.png",
-      githubUrl: "https://github.com",
-      liveUrl: "https://phisheye.vercel.app/",
       featured: true
     },
     {
