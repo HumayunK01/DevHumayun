@@ -46,6 +46,16 @@ function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "RailCon MHSSCE",
+      description: "Railway Concession Form is a full-stack web app to apply for and track railway concession passes. Frontend offers a guided, responsive form with document upload, success flow, and a tracker. Backend stores submissions, handles uploads, and exposes REST APIs.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
+      category: "fullstack",
+      imageUrl: "/projects/railcon.png",
+      githubUrl: "",
+      liveUrl: "https://railcon.vercel.app/",
+      featured: true
+    },
+    {
       title: "Asmeera Stays Official Website",
       description: "Asmeera Stays offers an exclusive collection of luxury villas across Mumbai, Lonavala, Karjat, Igatpuri, and Mahabaleshwar. Our platform provides a seamless booking experience for discerning travelers seeking premium accommodations with unparalleled service.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
@@ -65,16 +75,16 @@ function ProjectsSection() {
       liveUrl: "https://www.wellnesseligibilityprogram.com/",
       featured: true
     },
-    {
-      title: "PS Foundation",
-      description: "A modern React website for a non-profit organization showcasing sustainable development projects, mission, and impact. Features interactive components, responsive design, and donation/volunteering opportunities.",
-      tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
-      category: "frontend",
-      imageUrl: "/projects/psfoundation.webp",
-      githubUrl: "",
-      liveUrl: "https://psfoundationforyou.vercel.app/",
-      featured: true
-    },
+    // {
+    //   title: "PS Foundation",
+    //   description: "A modern React website for a non-profit organization showcasing sustainable development projects, mission, and impact. Features interactive components, responsive design, and donation/volunteering opportunities.",
+    //   tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
+    //   category: "frontend",
+    //   imageUrl: "/projects/psfoundation.webp",
+    //   githubUrl: "",
+    //   liveUrl: "https://psfoundationforyou.vercel.app/",
+    //   featured: true
+    // },
     {
       title: "Shahi Durbar",
       description: "Shahi Durbar - A modern web application showcasing premium Indian desserts and ice creams. Built with React, TypeScript, and Tailwind CSS, featuring responsive design, smooth animations, and an elegant UI that highlights the brand's royal heritage since 2011.",
