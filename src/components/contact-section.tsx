@@ -21,19 +21,20 @@ function ContactSection() {
           observer.unobserve(entry.target);
         }
       },
-      { 
+      {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -101,7 +102,7 @@ function ContactSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 reveal-content" style={{transitionDelay: "0.2s"}}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 reveal-content" style={{ transitionDelay: "0.2s" }}>
           {/* Contact Information - Hidden on mobile */}
           <Card className="hidden md:block overflow-hidden border-border bg-background/30 backdrop-blur-md hover:bg-background/40 transition-all duration-300 h-full">
             <div className="p-6 md:p-8 space-y-8">
@@ -285,7 +286,7 @@ function ContactSection() {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 text-center reveal-content" style={{transitionDelay: "0.4s"}}>
+        <div className="mt-16 text-center reveal-content" style={{ transitionDelay: "0.4s" }}>
           <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
             Looking forward to hearing from you! I typically respond within 24-48 hours.
           </p>

@@ -6,9 +6,9 @@
  * @param limit Time in milliseconds to wait between calls
  * @returns Throttled function
  */
-export function throttle(func: (...args: any[]) => void, limit: number) {
+export function throttle<T extends (...args: unknown[]) => void>(func: T, limit: number) {
   let inThrottle: boolean;
-  return function(this: any, ...args: any[]) {
+  return function (this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -23,9 +23,9 @@ export function throttle(func: (...args: any[]) => void, limit: number) {
  * @param delay Time in milliseconds to delay execution
  * @returns Debounced function
  */
-export function debounce(func: (...args: any[]) => void, delay: number) {
+export function debounce<T extends (...args: unknown[]) => void>(func: T, delay: number) {
   let timeoutId: NodeJS.Timeout;
-  return function(this: any, ...args: any[]) {
+  return function (this: unknown, ...args: Parameters<T>) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => func.apply(this, args), delay);
   }
@@ -36,9 +36,9 @@ export function debounce(func: (...args: any[]) => void, delay: number) {
  * @param func Function to throttle
  * @returns Throttled function using requestAnimationFrame
  */
-export function rafThrottle(func: (...args: any[]) => void) {
+export function rafThrottle<T extends (...args: unknown[]) => void>(func: T) {
   let ticking = false;
-  return function(this: any, ...args: any[]) {
+  return function (this: unknown, ...args: Parameters<T>) {
     if (!ticking) {
       requestAnimationFrame(() => {
         func.apply(this, args);

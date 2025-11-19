@@ -44,13 +44,14 @@ function SkillsSection() {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -143,7 +144,7 @@ function SkillsSection() {
         </div>
 
         {/* Modern Tabs Interface */}
-        <div className="mb-12 reveal-content" style={{transitionDelay: "0.1s"}}>
+        <div className="mb-12 reveal-content" style={{ transitionDelay: "0.1s" }}>
           <Tabs
             defaultValue="all"
             value={activeCategory}

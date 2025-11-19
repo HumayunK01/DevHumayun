@@ -15,13 +15,14 @@ function AboutSection() {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -47,8 +48,8 @@ function AboutSection() {
       {/* We're using the global background component now */}
 
       {/* Floating decorative elements - reduced for better performance */}
-      <div className="absolute top-32 left-[15%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{animationDelay: '0.7s'}} aria-hidden="true" />
-      <div className="absolute bottom-32 right-[10%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{animationDelay: '1.2s'}} aria-hidden="true" />
+      <div className="absolute top-32 left-[15%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{ animationDelay: '0.7s' }} aria-hidden="true" />
+      <div className="absolute bottom-32 right-[10%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{ animationDelay: '1.2s' }} aria-hidden="true" />
 
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-16">
@@ -63,7 +64,7 @@ function AboutSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          <div className="reveal-content" style={{transitionDelay: "0.1s"}}>
+          <div className="reveal-content" style={{ transitionDelay: "0.1s" }}>
             <div className="relative">
               <div className="aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border border-primary/20 bg-background/50 backdrop-blur-sm shadow-lg">
                 <picture>
@@ -78,8 +79,8 @@ function AboutSection() {
                 </picture>
                 {/* Decorative elements - matching hero section style */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl pulse-glow" aria-hidden="true" />
-                <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '1.5s'}} aria-hidden="true" />
-                <div className="absolute top-1/2 -right-6 w-12 h-12 bg-pink-500/20 rounded-full blur-xl pulse-glow" style={{animationDelay: '2s'}} aria-hidden="true" />
+                <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{ animationDelay: '1.5s' }} aria-hidden="true" />
+                <div className="absolute top-1/2 -right-6 w-12 h-12 bg-pink-500/20 rounded-full blur-xl pulse-glow" style={{ animationDelay: '2s' }} aria-hidden="true" />
               </div>
               <div className="absolute -bottom-8 -right-8 p-6 glass-card rounded-xl border border-white/10 shadow-lg max-w-xs bg-background/80 backdrop-blur-md">
                 <p className="font-serif italic text-lg">
@@ -89,7 +90,7 @@ function AboutSection() {
             </div>
           </div>
 
-          <div className="reveal-content" style={{transitionDelay: "0.3s"}}>
+          <div className="reveal-content" style={{ transitionDelay: "0.3s" }}>
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold mb-4 flex items-center">

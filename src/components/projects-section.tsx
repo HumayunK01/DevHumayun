@@ -31,13 +31,14 @@ function ProjectsSection() {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -149,7 +150,7 @@ function ProjectsSection() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12 reveal-content" style={{transitionDelay: "0.1s"}}>
+        <div className="flex flex-wrap justify-center gap-3 mb-12 reveal-content" style={{ transitionDelay: "0.1s" }}>
           <Button
             variant={filter === "all" ? "default" : "outline"}
             size="sm"
@@ -210,7 +211,7 @@ function ProjectsSection() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 reveal-content" style={{transitionDelay: "0.2s"}}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 reveal-content" style={{ transitionDelay: "0.2s" }}>
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project, index) => (
               <Card
@@ -243,11 +244,10 @@ function ProjectsSection() {
 
                 <CardContent className="flex-grow p-6">
                   <div className="mb-2">
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      project.category === 'frontend' ? 'bg-blue-500/10 text-blue-500' :
-                      project.category === 'blockchain' ? 'bg-green-500/10 text-green-500' :
-                      'bg-purple-500/10 text-purple-500'
-                    }`}>
+                    <span className={`text-xs px-2 py-1 rounded-full ${project.category === 'frontend' ? 'bg-blue-500/10 text-blue-500' :
+                        project.category === 'blockchain' ? 'bg-green-500/10 text-green-500' :
+                          'bg-purple-500/10 text-purple-500'
+                      }`}>
                       {project.category}
                     </span>
                   </div>

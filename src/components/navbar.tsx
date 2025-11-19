@@ -20,26 +20,36 @@ export function Navbar({ className }: NavbarProps) {
   useEffect(() => {
     const handleScroll = rafThrottle(() => {
       setIsScrolled(window.scrollY > 10);
+    });
 
-      // Determine which section is currently in view
-      const sections = ["hero", "about", "projects", "skills", "contact"];
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // If the section is in the viewport (with some buffer for navbar)
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
-        }
+        });
+      },
+      {
+        rootMargin: "-100px 0px -50% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    const sections = ["hero", "about", "projects", "skills", "contact"];
+    sections.forEach((section) => {
+      const element = document.getElementById(section);
+      if (element) {
+        observer.observe(element);
       }
     });
 
-    // Use passive event listener for better scroll performance
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
 
   const navLinks = [
@@ -55,7 +65,7 @@ export function Navbar({ className }: NavbarProps) {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-sm py-2"
+          ? "bg-background/80 backdrop-blur-md border-b border-border/50 shadow-sm py-2"
           : "bg-transparent py-4",
         className
       )}
