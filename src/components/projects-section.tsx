@@ -47,6 +47,16 @@ function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "ChatFlow",
+      description: "A modern, feature-rich AI chat assistant powered by OpenRouter. Features multiple AI models, real-time streaming, code highlighting, chat history, voice input, image support, and export capabilities. Built as a ChatGPT alternative with a beautiful, responsive interface.",
+      tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "OpenRouter API", "shadcn/ui"],
+      category: "fullstack",
+      imageUrl: "/projects/chatflow.png",
+      githubUrl: "https://github.com/HumayunK01/ChatFlow",
+      liveUrl: "https://chatflowaibot.vercel.app/",
+      featured: true
+    },
+    {
       title: "RailCon MHSSCE",
       description: "Railway Concession Form is a full-stack web app to apply for and track railway concession passes. Frontend offers a guided, responsive form with document upload, success flow, and a tracker. Backend stores submissions, handles uploads, and exposes REST APIs.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
@@ -245,8 +255,8 @@ function ProjectsSection() {
                 <CardContent className="flex-grow p-6">
                   <div className="mb-2">
                     <span className={`text-xs px-2 py-1 rounded-full ${project.category === 'frontend' ? 'bg-blue-500/10 text-blue-500' :
-                        project.category === 'blockchain' ? 'bg-green-500/10 text-green-500' :
-                          'bg-purple-500/10 text-purple-500'
+                      project.category === 'blockchain' ? 'bg-green-500/10 text-green-500' :
+                        'bg-purple-500/10 text-purple-500'
                       }`}>
                       {project.category}
                     </span>
