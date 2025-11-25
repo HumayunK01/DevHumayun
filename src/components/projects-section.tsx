@@ -57,6 +57,16 @@ function ProjectsSection() {
       featured: true
     },
     {
+      title: "Asmeera Stays",
+      description: "Asmeera Stays offers an exclusive collection of luxury villas across Mumbai, Lonavala, Karjat, Igatpuri, and Mahabaleshwar. Our platform provides a seamless booking experience for discerning travelers seeking premium accommodations with unparalleled service.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
+      category: "frontend",
+      imageUrl: "/projects/asmeera.webp",
+      githubUrl: "",
+      liveUrl: "https://asmeerastays.com/",
+      featured: true
+    },
+    {
       title: "RailCon MHSSCE",
       description: "Railway Concession Form is a full-stack web app to apply for and track railway concession passes. Frontend offers a guided, responsive form with document upload, success flow, and a tracker. Backend stores submissions, handles uploads, and exposes REST APIs.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
@@ -64,16 +74,6 @@ function ProjectsSection() {
       imageUrl: "/projects/railcon.png",
       githubUrl: "",
       liveUrl: "https://railcon.vercel.app/",
-      featured: true
-    },
-    {
-      title: "Asmeera Stays Official Website",
-      description: "Asmeera Stays offers an exclusive collection of luxury villas across Mumbai, Lonavala, Karjat, Igatpuri, and Mahabaleshwar. Our platform provides a seamless booking experience for discerning travelers seeking premium accommodations with unparalleled service.",
-      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
-      category: "frontend",
-      imageUrl: "/projects/asmeera.webp",
-      githubUrl: "",
-      liveUrl: "https://asmeerastays.vercel.app/",
       featured: true
     },
     {
