@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Linkedin, Mail, Twitter, Code } from "lucide-react";
+import { ExternalLink, Github, Linkedin, Mail, Twitter, Code, Download } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 
@@ -138,11 +138,14 @@ export function HeroSection() {
                   View My Work <ExternalLink className="h-4 w-4" />
                 </Button>
               </ScrollLink>
-              <ScrollLink to="contact" smooth={true} duration={800} offset={-100} className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto gap-2 text-base font-semibold hover:bg-secondary transition-all hover:scale-105">
-                  Contact Me <Mail className="h-4 w-4" />
-                </Button>
-              </ScrollLink>
+              <Button
+                onClick={() => window.open('/resume.pdf', '_blank')}
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto gap-2 text-base font-semibold hover:bg-secondary transition-all hover:scale-105"
+              >
+                Download Resume <Download className="h-4 w-4" />
+              </Button>
             </div>
 
             {/* Social Proof / Links */}

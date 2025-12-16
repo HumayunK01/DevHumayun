@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, memo } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { Menu, User, Code, Briefcase, Mail, Home, FolderOpen } from "lucide-react";
+import { Menu, User, Code, Briefcase, Mail, Home, FolderOpen, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { rafThrottle } from "@/lib/scroll-utils";
@@ -179,6 +179,17 @@ export function Navbar({ className }: NavbarProps) {
                       </a>
                     </SheetClose>
                   ))}
+
+                  {/* Resume Download Button - Mobile */}
+                  <SheetClose asChild>
+                    <Button
+                      onClick={() => window.open('/resume.pdf', '_blank')}
+                      className="mt-4 gap-2 w-full shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all"
+                    >
+                      <Download className="h-5 w-5" />
+                      Download Resume
+                    </Button>
+                  </SheetClose>
                 </div>
               </SheetContent>
             </Sheet>
@@ -233,6 +244,19 @@ export function Navbar({ className }: NavbarProps) {
                   onClick={handleScrollToSection}
                 />
               ))}
+
+              {/* Resume Download Button - Desktop */}
+              <button
+                onClick={() => window.open('/resume.pdf', '_blank')}
+                className={cn(
+                  "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                  "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-105",
+                  isScrolled ? "ml-2" : "ml-4"
+                )}
+              >
+                <Download className="h-4 w-4" />
+                <span className="hidden lg:inline">Resume</span>
+              </button>
             </div>
           </div>
         </motion.nav>
