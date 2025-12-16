@@ -25,6 +25,9 @@ export default defineConfig(({ mode }) => ({
 
     rollupOptions: {
       output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         // Configure manual chunks to better split the code
         manualChunks: {
           // Group React and related packages
