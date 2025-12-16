@@ -10,6 +10,7 @@ const AboutSection = lazy(() => import("@/components/about-section"));
 const ExperienceSection = lazy(() => import("@/components/experience-section"));
 const ProjectsSection = lazy(() => import("@/components/projects-section"));
 const SkillsSection = lazy(() => import("@/components/skills-section"));
+const GitHubStatsSection = lazy(() => import("@/components/github-stats-section"));
 const ContactSection = lazy(() => import("@/components/contact-section"));
 const Footer = lazy(() => import("@/components/footer"));
 
@@ -75,6 +76,10 @@ const Index = () => {
 
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
         <SkillsSection />
+      </Suspense>
+
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <GitHubStatsSection />
       </Suspense>
 
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
