@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose 
 const NAV_LINKS = [
   { name: "Home", href: "#hero", icon: Home },
   { name: "About", href: "#about", icon: User },
-  { name: "Experience", href: "#experience", icon: Briefcase },
+  { name: "My Journey", href: "#experience", icon: Briefcase },
   { name: "Projects", href: "#projects", icon: FolderOpen },
   { name: "Skills", href: "#skills", icon: Code },
   { name: "Contact", href: "#contact", icon: Mail },
