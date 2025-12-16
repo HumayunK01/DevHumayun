@@ -8,6 +8,7 @@ interface GlowCardProps {
     width?: string | number;
     height?: string | number;
     customSize?: boolean; // When true, ignores size prop and uses width/height or className
+    disabled?: boolean;
 }
 
 const glowColorMap = {
@@ -31,12 +32,15 @@ const GlowCard: React.FC<GlowCardProps> = ({
     size = 'md',
     width,
     height,
-    customSize = false
+    customSize = false,
+    disabled = false
 }) => {
     const cardRef = useRef<HTMLDivElement>(null);
     const innerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (disabled) return;
+
         const syncPointer = (e: PointerEvent) => {
             const { clientX: x, clientY: y } = e;
 
@@ -50,7 +54,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
 
         document.addEventListener('pointermove', syncPointer);
         return () => document.removeEventListener('pointermove', syncPointer);
-    }, []);
+    }, [disabled]);
 
     const { base, spread } = glowColorMap[glowColor];
 
@@ -61,6 +65,30 @@ const GlowCard: React.FC<GlowCardProps> = ({
         }
         return sizeMap[size];
     };
+
+    if (disabled) {
+        return (
+            <div
+                className={`
+          ${getSizeClasses()}
+          ${!customSize ? 'aspect-[3/4]' : ''}
+          rounded-2xl 
+          relative 
+          p-2
+          gap-4 
+          overflow-hidden
+          border border-white/10
+          ${className}
+        `}
+                style={{
+                    width: width !== undefined ? (typeof width === 'number' ? `${width}px` : width) : undefined,
+                    height: height !== undefined ? (typeof height === 'number' ? `${height}px` : height) : undefined,
+                }}
+            >
+                {children}
+            </div>
+        );
+    }
 
     const getInlineStyles = () => {
         const baseStyles: React.CSSProperties = {

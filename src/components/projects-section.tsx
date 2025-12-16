@@ -237,6 +237,7 @@ function ProjectsSection() {
                     className="h-full flex flex-col !bg-zinc-950/50 hover:!bg-zinc-900/80 transition-colors duration-500 group overflow-hidden"
                     glowColor={project.category === 'blockchain' ? 'blue' : project.category === 'frontend' ? 'purple' : 'green'}
                     customSize={true}
+                    disabled={isMobile}
                   >
 
                     {/* Image Header */}
