@@ -1,9 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ExternalLink, Folder, Filter, Code, Layout, Server, Search, GitBranch } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { useRef, useState, useEffect } from "react";
+import { ExternalLink, Search, Filter, Stethoscope, Palette } from "lucide-react";
+import { SiReact, SiTypescript, SiVite, SiTailwindcss, SiFramer, SiPostgresql, SiPrisma, SiSolidity, SiEthereum, SiOpenai, SiShadcnui, SiNextdotjs, SiFirebase, SiIpfs } from "react-icons/si";
+import { FaHardHat } from "react-icons/fa";
+import { FaRobot, FaDatabase, FaBolt } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
-type ProjectCategory = "frontend" | "blockchain" | "fullstack" | "design" | "all";
+type ProjectCategory = "frontend" | "blockchain" | "fullstack" | "all";
 
 type Project = {
   title: string;
@@ -16,39 +20,61 @@ type Project = {
   featured?: boolean;
 };
 
+const getTechIcon = (tag: string) => {
+  const t = tag.toLowerCase();
+  if (t.includes('react')) return <SiReact className="w-4 h-4 text-[#61DAFB]" />;
+  if (t.includes('type')) return <SiTypescript className="w-4 h-4 text-[#3178C6]" />;
+  if (t.includes('vite')) return <SiVite className="w-4 h-4 text-[#646CFF]" />;
+  if (t.includes('tailwind')) return <SiTailwindcss className="w-4 h-4 text-[#06B6D4]" />;
+  if (t.includes('framer')) return <SiFramer className="w-4 h-4 text-foreground" />;
+  if (t.includes('postgres')) return <SiPostgresql className="w-4 h-4 text-[#4169E1]" />;
+  if (t.includes('prisma')) return <SiPrisma className="w-4 h-4 text-foreground" />;
+  if (t.includes('solidity')) return <SiSolidity className="w-4 h-4 text-foreground" />;
+  if (t.includes('web3')) return <SiEthereum className="w-4 h-4 text-foreground" />;
+  if (t.includes('hardhat')) return <FaHardHat className="w-4 h-4 text-[#FFF100]" />;
+  if (t.includes('medical')) return <Stethoscope className="w-4 h-4 text-red-500" />;
+  if (t.includes('brand')) return <Palette className="w-4 h-4 text-pink-500" />;
+  if (t.includes('openrouter')) return <SiOpenai className="w-4 h-4 text-green-500" />; // Using OpenAI icon as proxy or generic robot
+  if (t.includes('shadcn')) return <SiShadcnui className="w-4 h-4 text-foreground" />;
+  if (t.includes('ai agent')) return <FaRobot className="w-4 h-4 text-orange-500" />;
+  if (t.includes('neon')) return <FaBolt className="w-4 h-4 text-[#00E599]" />; // Neon DB neon green/bolt
+  if (t.includes('next.js')) return <SiNextdotjs className="w-4 h-4 text-foreground" />;
+  if (t.includes('firebase')) return <SiFirebase className="w-4 h-4 text-[#FFCA28]" />;
+  if (t.includes('ipfs')) return <SiIpfs className="w-4 h-4 text-[#65C2CB]" />;
+  return null;
+};
+
 function ProjectsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [filter, setFilter] = useState<ProjectCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-active");
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setVisibleCount(mobile ? 3 : 6);
     };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Category icons are used directly in the buttons
 
   const projects: Project[] = [
     {
+      title: "PS Foundation",
+      description: "A modern, responsive, and accessible web portal for the PS Foundation, a non-profit organization dedicated to building sustainable futures through education, healthcare, and community development across rural India.",
+      tags: ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Vite", "Context API"],
+      category: "frontend",
+      imageUrl: "/projects/psfoundation.png",
+      githubUrl: "",
+      liveUrl: "https://psfoundationforyou.vercel.app/",
+      featured: true
+    },
+    {
       title: "ChatFlow",
-      description: "A modern, feature-rich AI chat assistant powered by OpenRouter. Features multiple AI models, real-time streaming, code highlighting, chat history, voice input, image support, and export capabilities. Built as a ChatGPT alternative with a beautiful, responsive interface.",
+      description: "A modern, feature-rich AI chat assistant powered by OpenRouter. Features multiple AI models, real-time streaming, chat history, and voice input.",
       tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "OpenRouter API", "shadcn/ui"],
       category: "fullstack",
       imageUrl: "/projects/chatflow.png",
@@ -58,8 +84,8 @@ function ProjectsSection() {
     },
     {
       title: "Asmeera Stays",
-      description: "Asmeera Stays offers an exclusive collection of luxury villas across Mumbai, Lonavala, Karjat, Igatpuri, and Mahabaleshwar. Our platform provides a seamless booking experience for discerning travelers seeking premium accommodations with unparalleled service.",
-      tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
+      description: "Luxury villa booking platform offering an exclusive collection of stays across Mumbai and Lonavala. Seamless booking experience with premium UI.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
       category: "frontend",
       imageUrl: "/projects/asmeera.webp",
       githubUrl: "",
@@ -68,7 +94,7 @@ function ProjectsSection() {
     },
     {
       title: "RailCon MHSSCE",
-      description: "Railway Concession Form is a full-stack web app to apply for and track railway concession passes. Frontend offers a guided, responsive form with document upload, success flow, and a tracker. Backend stores submissions, handles uploads, and exposes REST APIs.",
+      description: "Full-stack railway concession portal. Handles student applications, document uploads, and tracking with a strictly typed backend system.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
       category: "fullstack",
       imageUrl: "/projects/railcon.png",
@@ -77,8 +103,8 @@ function ProjectsSection() {
       featured: true
     },
     {
-      title: "WEP | Wellness Eligibility Program",
-      description: "Modern web platform offering Medicare-covered genetic testing for eligible beneficiaries. Features at-home cheek swab collection, comprehensive health screening programs, and physician-reviewed results with no upfront cost for qualified individuals.",
+      title: "WEP Platform",
+      description: "Health-tech platform for Medicare-covered testing. Features eligibility checking, appointment scheduling, and secure patient data handling.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
       category: "fullstack",
       imageUrl: "/projects/wep.webp",
@@ -86,19 +112,9 @@ function ProjectsSection() {
       liveUrl: "https://www.wellnesseligibilityprogram.com/",
       featured: true
     },
-    // {
-    //   title: "PS Foundation",
-    //   description: "A modern React website for a non-profit organization showcasing sustainable development projects, mission, and impact. Features interactive components, responsive design, and donation/volunteering opportunities.",
-    //   tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
-    //   category: "frontend",
-    //   imageUrl: "/projects/psfoundation.webp",
-    //   githubUrl: "",
-    //   liveUrl: "https://psfoundationforyou.vercel.app/",
-    //   featured: true
-    // },
     {
       title: "Shahi Durbar",
-      description: "Shahi Durbar - A modern web application showcasing premium Indian desserts and ice creams. Built with React, TypeScript, and Tailwind CSS, featuring responsive design, smooth animations, and an elegant UI that highlights the brand's royal heritage since 2011.",
+      description: "Premium brand website for a heritage dessert chain. Showcases products with high-end photography and smooth scroll animations.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
       category: "frontend",
       imageUrl: "/projects/shahidurbar.png",
@@ -107,9 +123,19 @@ function ProjectsSection() {
       featured: true
     },
     {
+      title: "PawFund",
+      description: "PawFund is a decentralized crowdfunding platform for animal rescue, connecting donors with urgent cases through blockchain technology.",
+      tags: ["React", "Tailwind CSS", "Ethereum", "Hardhat", "IPFS"],
+      category: "blockchain",
+      imageUrl: "/projects/pawfund.webp",
+      githubUrl: "https://github.com/HumayunK01/PawFund",
+      liveUrl: "",
+      featured: true
+    },
+    {
       title: "EtherEstate",
-      description: "A blockchain-based DApp to simplify real estate transactions using Ethereum smart contracts. Built with React, Solidity, Hardhat & Ethers.js, it enables wallet-based property listing, purchase, and secure on-chain ownership transfer.",
-      tags: ["React", "Tailwind CSS", "Solidity", "Web3"],
+      description: "Decentralized real estate marketplace. Handles property listing, buying, and ownership transfer via Ethereum smart contracts.",
+      tags: ["React", "Tailwind CSS", "Solidity", "Web3", "Hardhat"],
       category: "blockchain",
       imageUrl: "/projects/etherestate.webp",
       githubUrl: "https://github.com/HumayunK01/EtherEstate",
@@ -122,12 +148,12 @@ function ProjectsSection() {
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase"],
       category: "fullstack",
       imageUrl: "/projects/programmersclub.webp",
-      githubUrl: "https://github.com/HumayunK01/programmersclub",
-      liveUrl: "https://programmersclub.vercel.app/"
-    },
+      githubUrl: "",
+      liveUrl: "https://programmersclub.vercel.app/",
+      featured: true
+    }
   ];
 
-  // Filter projects based on category and search query
   const filteredProjects = projects.filter(project => {
     const matchesCategory = filter === "all" || project.category === filter;
     const matchesSearch = searchQuery === "" ||
@@ -139,191 +165,183 @@ function ProjectsSection() {
   });
 
   return (
-    <section id="projects" ref={sectionRef} className="relative py-10 md:py-22 md:px-12 lg:px-24 overflow-hidden reveal-container">
-      {/* Local decorative elements - reduced for better performance */}
-      <div className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="absolute bottom-20 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" aria-hidden="true" />
+    <section id="projects" className="relative py-24 overflow-hidden">
+      {/* Consistent Grid Background */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+        <div className="absolute left-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]" />
+      </div>
 
-      <div className="container mx-auto relative z-10">
-        <div className="text-center mb-12 reveal-content">
-          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full border border-primary/20 bg-background/50 backdrop-blur-sm text-sm font-medium">
-            <span className="text-primary mr-2">✦</span>
-            My Work
-            <span className="text-primary ml-2">✦</span>
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full border border-primary/20 bg-primary/5 text-sm font-medium text-primary cursor-default">
+            Feature Works
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Featured <span className="gradient-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">Projects</span>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            Selected <span className="text-primary">Projects</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover my portfolio of web, blockchain, and full-stack development projects.
+          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
+            A curated collection of web, blockchain, and full-stack applications I've built.
           </p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12 reveal-content" style={{ transitionDelay: "0.1s" }}>
-          <Button
-            variant={filter === "all" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("all")}
-            className="rounded-full transition-all duration-300 flex items-center gap-2"
-          >
-            <Filter className="h-4 w-4" />
-            All Projects
-          </Button>
-          <Button
-            variant={filter === "frontend" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("frontend")}
-            className="rounded-full transition-all duration-300 flex items-center gap-2"
-          >
-            <Layout className="h-4 w-4" />
-            Frontend
-          </Button>
-          <Button
-            variant={filter === "blockchain" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("blockchain")}
-            className="rounded-full transition-all duration-300 flex items-center gap-2"
-          >
-            <Server className="h-4 w-4" />
-            Blockchain
-          </Button>
-          <Button
-            variant={filter === "fullstack" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("fullstack")}
-            className="rounded-full transition-all duration-300 flex items-center gap-2"
-          >
-            <Code className="h-4 w-4" />
-            Full Stack
-          </Button>
+        {/* Filter & Search Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
 
-          {/* Search Input */}
-          <div className="relative ml-2">
-            <div className="flex items-center border border-primary/20 rounded-full bg-background/50 backdrop-blur-sm overflow-hidden">
+          {/* Categories */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {(["all", "frontend", "fullstack", "blockchain"] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
+                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                  : "bg-background border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/50"
+                  }`}
+              >
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </button>
+            ))}
+          </div>
+
+          {/* Search */}
+          <div className="relative group w-full md:w-auto">
+            <div className="flex items-center border border-border/50 rounded-full bg-background/50 backdrop-blur-sm px-4 py-2 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+              <Search className="h-4 w-4 text-muted-foreground mr-2" />
               <input
                 type="text"
                 placeholder="Search projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="py-2 px-4 bg-transparent outline-none text-sm w-full max-w-[150px] md:max-w-[200px]"
+                className="bg-transparent border-none outline-none text-sm w-full md:w-48 placeholder:text-muted-foreground/50"
               />
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Search className="h-4 w-4" />
-              </Button>
             </div>
           </div>
         </div>
 
-        {/* Project Count */}
-        <div className="text-center mb-8 text-sm text-muted-foreground">
-          Showing {filteredProjects.length} of {projects.length} projects
-        </div>
-
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 reveal-content" style={{ transitionDelay: "0.2s" }}>
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((project, index) => (
-              <Card
-                key={index}
-                className="card-hover border-border overflow-hidden bg-background/30 backdrop-blur-md hover:bg-background/40 transition-all duration-300 flex flex-col h-full"
-              >
-                {project.featured && (
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="px-2 py-1 bg-primary/80 text-primary-foreground text-xs font-medium rounded-full">
-                      Featured
-                    </span>
-                  </div>
-                )}
-                <CardHeader className="relative p-0">
-                  {project.imageUrl ? (
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                        loading="lazy"
-                      />
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.length > 0 ? (
+              filteredProjects.slice(0, visibleCount).map((project) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                  transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
+                  key={project.title}
+                >
+                  <GlowCard
+                    className="h-full flex flex-col !bg-zinc-950/50 hover:!bg-zinc-900/80 transition-colors duration-500 group overflow-hidden"
+                    glowColor={project.category === 'blockchain' ? 'blue' : project.category === 'frontend' ? 'purple' : 'green'}
+                    customSize={true}
+                  >
+
+                    {/* Image Header */}
+                    <div className="relative aspect-[16/10] overflow-hidden w-full rounded-xl">
+                      {project.imageUrl && (
+                        <img
+                          src={project.imageUrl}
+                          alt={project.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-60" />
+
+                      {/* Category Badge - Minimal */}
+                      <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] tracking-wider uppercase font-medium text-white/80">
+                        {project.category}
+                      </div>
                     </div>
-                  ) : (
-                    <div className="aspect-video bg-secondary/30 backdrop-blur-sm flex items-center justify-center">
-                      <Folder size={64} className="text-muted-foreground/50" />
+
+                    <div className="p-4 flex flex-col flex-grow relative z-10">
+                      <div className="mb-4">
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+                          {project.title}
+                        </h3>
+                        <p className="mt-3 text-zinc-400 text-sm line-clamp-2 leading-relaxed h-[2.5rem]">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      {/* Tags - Neutral & Minimal */}
+                      {/* Tags - Stacked Icons */}
+                      <div className="flex items-center -space-x-2 mt-auto pt-4 border-t border-white/5 pl-2">
+                        {project.tags.map((tag, i) => {
+                          const icon = getTechIcon(tag);
+                          return (
+                            <span
+                              key={tag}
+                              title={tag}
+                              className="relative flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 border border-white/10 ring-2 ring-zinc-950 transition-transform hover:scale-110 hover:z-10 text-muted-foreground"
+                              style={{ zIndex: 5 - i }}
+                            >
+                              {icon ? icon : <span className="text-[9px] font-bold">{tag.slice(0, 2).toUpperCase()}</span>}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex w-full mt-6">
+                        {project.liveUrl ? (
+                          <a href={project.liveUrl} target="_blank" rel="noreferrer" className="w-full">
+                            <Button variant="default" size="sm" className="w-full gap-2 text-xs font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all rounded-xl">
+                              <ExternalLink className="h-3.5 w-3.5" /> Live Website
+                            </Button>
+                          </a>
+                        ) : (
+                          <Button variant="secondary" size="sm" disabled className="w-full gap-2 text-xs font-semibold opacity-50 rounded-xl">
+                            <ExternalLink className="h-3.5 w-3.5" /> Live Website
+                          </Button>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </CardHeader>
+                  </GlowCard>
+                </motion.div>
+              ))
+            ) : (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full py-20 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+                  <Search className="h-8 w-8 text-muted-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">No projects found</h3>
+                <p className="text-muted-foreground mt-2">Try adjusting your filters or search query</p>
+                <Button
+                  variant="link"
+                  onClick={() => { setFilter("all"); setSearchQuery(""); }}
+                  className="mt-4 text-primary"
+                >
+                  Clear all filters
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-                <CardContent className="flex-grow p-6">
-                  <div className="mb-2">
-                    <span className={`text-xs px-2 py-1 rounded-full ${project.category === 'frontend' ? 'bg-blue-500/10 text-blue-500' :
-                      project.category === 'blockchain' ? 'bg-green-500/10 text-green-500' :
-                        'bg-purple-500/10 text-purple-500'
-                      }`}>
-                      {project.category}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 font-serif">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4 text-sm">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, i) => (
-                      <span key={i} className="text-xs px-2 py-1 rounded-full bg-secondary/50 backdrop-blur-sm text-secondary-foreground">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
+        {/* Show More / Show Less Button */}
+        {filteredProjects.length > (isMobile ? 3 : 6) && (
+          <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              onClick={() => {
+                const defaultCount = isMobile ? 3 : 6;
+                setVisibleCount(visibleCount > defaultCount ? defaultCount : filteredProjects.length);
+              }}
+              className="rounded-full px-8 py-6 text-sm font-medium border-primary/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-muted-foreground hover:text-primary"
+            >
+              {visibleCount > (isMobile ? 3 : 6) ? "Show Less" : "Show More Projects"}
+            </Button>
+          </div>
+        )}
 
-                <CardFooter className="flex justify-between p-6 pt-0 mt-auto">
-                  <div className="flex space-x-3">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-foreground transition-theme"
-                    >
-                      <GitBranch size={20} />
-                    </a>
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground transition-theme"
-                      >
-                        <ExternalLink size={20} />
-                      </a>
-                    )}
-                  </div>
-                </CardFooter>
-              </Card>
-            ))
-          ) : (
-            <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground">No projects found matching your criteria.</p>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setFilter("all");
-                  setSearchQuery("");
-                }}
-                className="mt-4"
-              >
-                Reset Filters
-              </Button>
-            </div>
-          )}
-        </div>
-
-        {/* <div className="mt-12 text-center reveal-content" style={{transitionDelay: "0.4s"}}>
-          <Button variant="outline" className="group btn-glow pulse-glow">
-            <span className="flex items-center text-white">
-              View All Projects
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Button>
-        </div> */}
       </div>
-    </section>
+    </section >
   );
 }
 

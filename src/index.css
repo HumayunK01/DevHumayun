@@ -92,49 +92,35 @@
   /* Desktop/tablet scrollbar styles */
   html {
     scrollbar-width: thin;
-    scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+    scrollbar-color: hsl(var(--muted-foreground)) transparent;
     /* Optimize scrolling performance */
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
   }
 
   /* Webkit browsers */
   html::-webkit-scrollbar {
-    width: 8px;
-    background: hsl(var(--background));
+    width: 6px;
+    background: transparent;
   }
 
   html::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)) 80%);
-    border-radius: 8px;
-    border: 2px solid hsl(var(--background));
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 20px;
+    border: transparent;
   }
 
   html::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    background-color: hsl(var(--muted-foreground) / 0.6);
   }
 
   html::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-    border-radius: 8px;
+    background: transparent;
   }
 
-  /* Dark mode adjustments */
+  /* Dark mode adjustments - kept consistent with above */
   .dark html {
-    scrollbar-color: hsl(var(--primary)) hsl(var(--background));
-  }
-
-  .dark html::-webkit-scrollbar {
-    background: hsl(var(--background));
-  }
-
-  .dark html::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)) 80%);
-    border: 2px solid hsl(var(--background));
-  }
-
-  .dark html::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    scrollbar-color: hsl(var(--muted-foreground)) transparent;
   }
 
   /* Hide scrollbar on mobile devices (<768px) */

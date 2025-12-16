@@ -1,142 +1,264 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Code, Palette, ExternalLink } from "lucide-react";
+import { ExternalLink, Github, Linkedin, Mail, Twitter, Code } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 
 export function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile device on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mouse position for tilt effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12.5deg", "-12.5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12.5deg", "12.5deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return; // Disable tilt on mobile
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
+  const TypewriterText = () => {
+    const roles = ["Full Stack Developer", "Blockchain Engineer", "UI/UX Designer"];
+    const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+    const [displayText, setDisplayText] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    useEffect(() => {
+      const typeSpeed = isDeleting ? 50 : 100;
+      const timeout = setTimeout(() => {
+        const currentRole = roles[currentRoleIndex];
+
+        if (!isDeleting) {
+          setDisplayText(currentRole.substring(0, displayText.length + 1));
+          if (displayText.length === currentRole.length) {
+            setTimeout(() => setIsDeleting(true), 1500);
+          }
+        } else {
+          setDisplayText(currentRole.substring(0, displayText.length - 1));
+          if (displayText.length === 0) {
+            setIsDeleting(false);
+            setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+          }
+        }
+      }, typeSpeed);
+
+      return () => clearTimeout(timeout);
+    }, [displayText, isDeleting, currentRoleIndex, roles]);
+
+    return (
+      <>
+        <span className="text-foreground ml-2">{displayText}</span>
+        <span className="ml-1 w-0.5 h-8 bg-primary animate-pulse" />
+      </>
+    );
+  };
+
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-20 mt-2 md:mt-0">
-      {/* Decorative Elements - reduced for better performance */}
-      <div className="absolute top-32 md:top-24 right-[20%] lg:right-[25%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{ animationDelay: '0.5s' }} aria-hidden="true" />
-      <div className="absolute bottom-32 left-[20%] lg:left-[25%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{ animationDelay: '1.5s' }} aria-hidden="true" />
+    <section id="hero" className="relative min-h-[100dvh] flex flex-col justify-center overflow-x-hidden pt-24 pb-20 md:pt-20 md:pb-0">
+      {/* Dynamic Background Pattern */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]" />
+      </div>
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10 text-center md:text-left">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
-          <div className={`space-y-8 transform ${isLoaded ? 'animate-fade-in' : 'opacity-0'} mx-auto md:mx-0 max-w-xl md:max-w-none`} style={{ animationDelay: '0.1s' }}>
-            {/* Badge */}
-            <div className="inline-flex items-center rounded-full border border-primary/20 bg-background/50 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-foreground mb-2 mt-4 md:mt-0">
-              <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+      <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center max-w-7xl mx-auto">
+
+          {/* Text Content */}
+          <div className={`space-y-8 flex flex-col items-center lg:items-start text-center lg:text-left transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+
+            {/* Status Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary shadow-sm hover:bg-primary/10 transition-colors cursor-default"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
-              Available for freelance work
-            </div>
+              Available for new projects
+            </motion.div>
 
-            <div className="reveal-container">
-              <h1 className="text-5xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="gradient-text">Full Stack</span> Developer
-                <span className="block mt-2">&amp; <span className="gradient-text">Blockchain</span> Engineer</span>
+            {/* Main Title */}
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+                Hi, I'm <span className="text-primary relative inline-block">
+                  Humayun
+                  <svg className="absolute w-full h-2.5 -bottom-1 left-0 text-primary opacity-40" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C25.7937 2.1462 72.8228 -1.27218 198.006 2.65151" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /> </svg>
+                </span>
               </h1>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-muted-foreground h-[1.5em] flex items-center justify-center lg:justify-start">
+                I am a <TypewriterText />
+              </h2>
             </div>
 
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto md:mx-0 leading-relaxed">
-              Specializing in Next.js development, blockchain technologies, and creating innovative digital solutions.
+            <p className="text-lg text-zinc-400 max-w-xl leading-relaxed">
+              Crafting exceptional digital experiences with modern web technologies.
+              Specializing in scalable, high-performance applications that solve real-world problems.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <ScrollLink to="projects" smooth={true} duration={800} offset={-100}>
-                  <Button
-                    size="lg"
-                    className="w-full sm:w-auto group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-sm transform scale-150" />
-                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="relative flex items-center">
-                      View My Work
-                      <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </Button>
-                </ScrollLink>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <ScrollLink to="contact" smooth={true} duration={800} offset={-100}>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto group relative overflow-hidden border-2 border-primary/30 hover:border-primary/80 bg-background/30 hover:bg-background/50 backdrop-blur-sm transition-all duration-300"
-                  >
-                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="relative">Get In Touch</span>
-                  </Button>
-                </ScrollLink>
-              </motion.div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <ScrollLink to="projects" smooth={true} duration={800} offset={-100} className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto gap-2 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-105">
+                  View My Work <ExternalLink className="h-4 w-4" />
+                </Button>
+              </ScrollLink>
+              <ScrollLink to="contact" smooth={true} duration={800} offset={-100} className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto gap-2 text-base font-semibold hover:bg-secondary transition-all hover:scale-105">
+                  Contact Me <Mail className="h-4 w-4" />
+                </Button>
+              </ScrollLink>
             </div>
 
-            {/* Skills Icons */}
-            <div className="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
-                  <Code className="w-4 h-4 text-primary" />
-                </div>
-                <span>Development</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
-                  <Palette className="w-4 h-4 text-primary" />
-                </div>
-                <span>Design</span>
-              </div>
+            {/* Social Proof / Links */}
+            <div className="pt-4 flex items-center gap-6 text-muted-foreground">
+              <motion.a href="https://github.com/HumayunK01" target="_blank" whileHover={{ scale: 1.2, color: "#fff" }} className="hover:text-foreground transition-colors"><Github className="h-6 w-6" /></motion.a>
+              <motion.a href="https://www.linkedin.com/in/devhumayun/" target="_blank" whileHover={{ scale: 1.2, color: "#0A66C2" }} className="hover:text-foreground transition-colors"><Linkedin className="h-6 w-6" /></motion.a>
+              <motion.a href="https://x.com/humayunkpvt/" target="_blank" whileHover={{ scale: 1.2, color: "#1DA1F2" }} className="hover:text-foreground transition-colors"><Twitter className="h-6 w-6" /></motion.a>
             </div>
           </div>
 
-          <div className={`transform ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
-            <div className="relative aspect-square max-w-md mx-auto">
-              {/* Decorative elements around the card */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl pulse-glow" aria-hidden="true" />
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{ animationDelay: '1.5s' }} aria-hidden="true" />
-              <div className="absolute top-1/2 -right-6 w-12 h-12 bg-pink-500/20 rounded-full blur-xl pulse-glow" style={{ animationDelay: '2s' }} aria-hidden="true" />
+          {/* 3D Tilt Image Card */}
+          <div className="relative flex justify-center lg:justify-end mt-12 lg:mt-0" style={{ perspective: "1000px" }}>
+            <motion.div
+              style={{
+                rotateX: isMobile ? 0 : rotateX,
+                rotateY: isMobile ? 0 : rotateY,
+                transformStyle: "preserve-3d",
+              }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, type: "spring" }}
+              className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] rounded-3xl cursor-grab active:cursor-grabbing"
+            >
+              {/* Background Glows */}
+              <div
+                className="absolute inset-0 bg-gradient-to-tr from-primary to-purple-500 rounded-3xl blur-2xl opacity-30 animate-pulse"
+                style={{ transform: "translateZ(-50px)" }}
+              />
 
-              {/* Main card with improved styling */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 backdrop-blur-sm animate-float" />
-              <div className="absolute inset-4 rounded-xl bg-background/80 glass-card flex items-center justify-center p-8 overflow-hidden border border-white/10 shadow-lg">
-                <div className="relative">
-                  <picture>
-                    <source srcSet="/me.webp" type="image/webp" />
-                    <source srcSet="/me.png" type="image/png" />
+              {/* Card Container */}
+              <div
+                className="absolute inset-0 bg-background/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden"
+                style={{ transform: "translateZ(20px)" }}
+              >
+                {/* Image */}
+                <div className="absolute inset-0 flex items-center justify-center p-2">
+                  <div className="relative w-full h-full rounded-2xl overflow-hidden bg-muted">
                     <img
                       src="/me.webp"
-                      alt="Profile"
-                      className="w-58 h-58 object-cover rounded-full animate-float"
-                      style={{ animationDelay: '1s' }}
+                      alt="Humayun"
                       loading="eager"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                     />
-                  </picture>
-                  <div className="absolute -bottom-4 -right-4 text-sm font-medium bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-                    Hello!
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+
+                    <div className="absolute bottom-6 left-6 text-white">
+                      <p className="text-sm font-medium opacity-80">Based in</p>
+                      <p className="text-xl font-bold">Mumbai, India</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+
+              {/* Floating Badge Element 1 */}
+              <motion.div
+                className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-background/80 backdrop-blur-md p-3 md:p-4 rounded-2xl border border-border shadow-xl flex items-center gap-3 z-50"
+                initial={{ z: 70, y: 0 }}
+                animate={{ z: 70, y: [0, -10, 0] }}
+                transition={{
+                  y: { repeat: Infinity, duration: 4, ease: "easeInOut" },
+                  z: { duration: 0 } // steady z
+                }}
+              >
+                <div className="h-8 w-8 md:h-10 md:w-10 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-500">
+                  <Code className="h-5 w-5 md:h-6 md:w-6" />
+                </div>
+                <div>
+                  <p className="text-[10px] md:text-xs text-muted-foreground">Experience</p>
+                  <p className="text-xs md:text-sm font-bold">3+ Years</p>
+                </div>
+              </motion.div>
+
+              {/* Floating Badge Element 2 */}
+              <motion.div
+                className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-background/80 backdrop-blur-md p-3 md:p-4 rounded-2xl border border-border shadow-xl flex items-center gap-3 z-50"
+                initial={{ z: 70, y: 0 }}
+                animate={{ z: 70, y: [0, 10, 0] }}
+                transition={{
+                  y: { repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 },
+                  z: { duration: 0 }
+                }}
+              >
+                <div className="h-8 w-8 md:h-10 md:w-10 bg-green-500/10 rounded-full flex items-center justify-center text-green-500">
+                  <div className="h-2.5 w-2.5 md:h-3 md:w-3 bg-green-500 rounded-full animate-ping" />
+                </div>
+                <div>
+                  <p className="text-[10px] md:text-xs text-muted-foreground">Projects</p>
+                  <p className="text-xs md:text-sm font-bold">50+ Completed</p>
+                </div>
+              </motion.div>
+
+            </motion.div>
           </div>
+
         </div>
 
-        {/* <div className="absolute bottom-12 left-0 right-0 flex justify-center">
-          <a href="#about" className="group p-3 transition-all hover:translate-y-1 rounded-full border border-primary/20 bg-background/50 backdrop-blur-sm hover:border-primary/40 hover:bg-background/70">
-            <ArrowDown className="h-6 w-6 text-primary/70 group-hover:text-primary animate-float" />
-          </a>
-          <div className="absolute -z-10 w-12 h-12 rounded-full bg-primary/5 blur-xl pulse-glow" />
-        </div> */}
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-[-2] left-1/2 -translate-x-1/2 cursor-pointer hidden md:flex flex-col items-center gap-2"
+        >
+          <span className="text-sm text-muted-foreground font-medium">Scroll down</span>
+          <div className="w-5 h-8 border-2 border-primary/30 rounded-full flex justify-center p-1">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className="w-1 h-1 bg-primary rounded-full"
+            />
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

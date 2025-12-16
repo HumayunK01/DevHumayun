@@ -1,140 +1,129 @@
-import { useEffect, useRef } from "react";
-import { User, Code, ExternalLink, Heart } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { User, ExternalLink, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-active");
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const skills = [
-    { name: "React", category: "frontend" },
-    { name: "TypeScript", category: "language" },
-    { name: "C", category: "language" },
-    { name: "C++", category: "language" },
-    { name: "Java", category: "language" },
-    { name: "Python", category: "language" },
-    { name: "XML", category: "language" },
-    { name: "JavaScript", category: "language" },
-    { name: "Tailwind CSS", category: "frontend" },
-    { name: "Next.js", category: "frontend" },
-    { name: "Solidity", category: "blockchain" },
-    { name: "Web3.js", category: "blockchain" },
-    { name: "Android Studio", category: "tools" }
-  ];
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const parallaxY = isMobile ? 0 : y;
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-10 md:py-32 lg:px-24 overflow-hidden reveal-container">
-      {/* We're using the global background component now */}
+    <section id="about" ref={containerRef} className="relative py-16 md:py-24 overflow-hidden">
+      {/* Consistent Background Pattern (Matching Hero) */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+        <div className="absolute right-0 bottom-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]" />
+      </div>
 
-      {/* Floating decorative elements - reduced for better performance */}
-      <div className="absolute top-32 left-[15%] w-16 h-16 border border-primary/20 rounded-lg rotate-12 animate-float" style={{ animationDelay: '0.7s' }} aria-hidden="true" />
-      <div className="absolute bottom-32 right-[10%] w-8 h-8 border border-primary/20 rounded-full animate-float" style={{ animationDelay: '1.2s' }} aria-hidden="true" />
-
-      <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full border border-primary/20 bg-background/50 backdrop-blur-sm text-sm font-medium">
-            <span className="text-primary mr-2">✦</span>
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full border border-primary/20 bg-primary/5 text-sm font-medium text-primary cursor-default">
             About Me
-            <span className="text-primary ml-2">✦</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            My <span className="gradient-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">Journey</span> & Expertise
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+            Crafting Digital <span className="text-primary">Excellence</span>
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          <div className="reveal-content" style={{ transitionDelay: "0.1s" }}>
-            <div className="relative">
-              <div className="aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border border-primary/20 bg-background/50 backdrop-blur-sm shadow-lg">
-                <picture>
-                  <source srcSet="/realme.webp" type="image/webp" />
-                  <source srcSet="/realme.png" type="image/png" />
-                  <img
-                    src="/realme.webp"
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </picture>
-                {/* Decorative elements - matching hero section style */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-500/20 rounded-full blur-xl pulse-glow" aria-hidden="true" />
-                <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-purple-500/20 rounded-full blur-xl pulse-glow" style={{ animationDelay: '1.5s' }} aria-hidden="true" />
-                <div className="absolute top-1/2 -right-6 w-12 h-12 bg-pink-500/20 rounded-full blur-xl pulse-glow" style={{ animationDelay: '2s' }} aria-hidden="true" />
-              </div>
-              <div className="absolute -bottom-8 -right-8 p-6 glass-card rounded-xl border border-white/10 shadow-lg max-w-xs bg-background/80 backdrop-blur-md">
-                <p className="font-serif italic text-lg">
-                  "Code is like humor. When you have to explain it, it's bad!"
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          <div className="reveal-content" style={{ transitionDelay: "0.3s" }}>
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-4 flex items-center">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 mr-3">
-                    <User className="w-4 h-4 text-primary" />
-                  </span>
-                  About Me
-                </h3>
-                <div className="space-y-4 text-lg text-justify">
-                  <p>
-                    I'm a skilled full-stack developer with expertise in blockchain technologies and mobile
-                    application development. With a strong foundation in multiple programming languages
-                    including C, C++, Java, Python, and JavaScript, I create robust and innovative digital solutions.
-                  </p>
-                  <p>
-                    My experience spans across web development, blockchain applications, and mobile development.
-                    I'm passionate about creating secure, efficient, and user-friendly applications that leverage
-                    cutting-edge technologies to deliver exceptional user experiences.
+          {/* Left Column: Image */}
+          <div className="relative">
+            <motion.div
+              style={{ y: parallaxY }}
+              className="relative z-10"
+            >
+              <div className="relative aspect-square w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+                {/* Image */}
+                <img
+                  src="/realme.webp"
+                  alt="Profile"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60" />
+
+                {/* Floating Quote - Minimal Glass */}
+                <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-white/90">
+                  <p className="font-serif italic text-sm md:text-base">
+                    "Code is like humor. When you have to explain it, it's bad!"
                   </p>
                 </div>
               </div>
-              <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                <Button
-                  className="group btn-glow pulse-glow w-full sm:w-auto"
-                  onClick={() => window.open('/resume.pdf', '_blank')}
-                >
-                  <span className="flex items-center justify-center">
-                    Download Resume
-                    <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Button>
-                <Button
-                  className="group btn-glow pulse-glow w-full sm:w-auto"
-                  onClick={() => window.open('https://github.com/sponsors/HumayunK01', '_blank')}
-                >
-                  <span className="flex items-center justify-center">
-                    Sponsor Me
-                    <Heart className="ml-2 h-4 w-4 transition-transform group-hover:scale-110" strokeWidth={2} />
-                  </span>
-                </Button>
+
+              {/* Minimal Border Offset */}
+              <div className="absolute inset-0 border border-primary/20 rounded-3xl translate-x-4 translate-y-4 -z-10 max-w-sm mx-auto" />
+            </motion.div>
+          </div>
+
+          {/* Right Column: Bio */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3 className="text-3xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                <User className="text-primary h-6 w-6" />
+                Who I Am
+              </h3>
+              <div className="space-y-4 text-zinc-400 text-lg leading-relaxed text-left">
+                <p>
+                  I'm a passionate Full-Stack Developer with a knack for building robust and scalable web applications.
+                  My journey began with a curiosity for how things work on the internet, which quickly evolved into a
+                  career obsession with clean code and intuitive user experiences.
+                </p>
+                <p>
+                  With expertise ranging from low-level languages like C/C++ to modern web frameworks like React and Next.js,
+                  I bridge the gap between complex engineering and elegant design. I also specialize in Blockchain technologies,
+                  creating decentralized solutions for the future.
+                </p>
               </div>
+            </motion.div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Button
+                onClick={() => window.open('/resume.pdf', '_blank')}
+                className="gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all"
+              >
+                Download Resume <ExternalLink className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => window.open('https://github.com/sponsors/HumayunK01', '_blank')}
+                className="gap-2 hover:bg-secondary hover:scale-105 transition-all"
+              >
+                Sponsor Me <Heart className="h-4 w-4 text-red-500" />
+              </Button>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

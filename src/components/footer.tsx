@@ -1,5 +1,6 @@
-import { Github, Linkedin, Twitter, Instagram, Mail, MapPin, Heart, Home, User, Briefcase, Code, Mail as MailIcon } from "lucide-react";
+import { Github, Linkedin, Twitter, Instagram, Mail, MapPin, Heart, ChevronRight } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
+import { motion } from "framer-motion";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,90 +13,137 @@ function Footer() {
   ];
 
   const quickLinks = [
-    { name: "Home", to: "hero", icon: Home },
-    { name: "About", to: "about", icon: User },
-    { name: "Projects", to: "projects", icon: Briefcase },
-    { name: "Skills", to: "skills", icon: Code },
-    { name: "Contact", to: "contact", icon: MailIcon },
+    { name: "Home", to: "hero" },
+    { name: "About", to: "about" },
+    { name: "Experience", to: "experience" },
+    { name: "Projects", to: "projects" },
+    { name: "Skills", to: "skills" },
+    { name: "Contact", to: "contact" },
   ];
 
   return (
-    <footer className="relative bg-background border-t border-border/30 pt-16 pb-10 overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" aria-hidden="true" />
+    <footer className="relative bg-zinc-950 pt-10 md:pt-20 pb-8 md:pb-10 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent opacity-30" />
 
-      <div className="container mx-auto px-6 md:px-8 lg:px-18 max-w-full relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-12 mx-auto max-w-7xl">
-          {/* Brand column */}
-          <div className="space-y-4 text-center md:text-left">
-            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">DevHumayun</h3>
-            <p className="text-muted-foreground">
-              Creating digital experiences that blend innovative code with stunning design aesthetics.
-            </p>
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground justify-center md:justify-start">
-              <Mail className="h-4 w-4" />
-              <span>humayunk.pvt@gmail.com</span>
-            </div>
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground justify-center md:justify-start">
-              <MapPin className="h-4 w-4" />
-              <span>Thane, India</span>
-            </div>
-          </div>
+      <div className="container mx-auto px-4 md:px-12 lg:px-24 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
 
-          {/* Quick links */}
-          <div className="text-center md:text-left">
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.to}>
-                  <ScrollLink
-                    to={link.to}
-                    smooth={true}
-                    duration={800}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200 cursor-pointer flex items-center justify-center md:justify-start"
-                  >
-                    <link.icon className="h-4 w-4 mr-2" />
-                    {link.name}
-                  </ScrollLink>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Brand Column */}
+          <div className="space-y-6 lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                  H
+                </span>
+                DevHumayun
+              </h3>
+              <p className="text-muted-foreground max-w-sm leading-relaxed">
+                Crafting digital experiences that merge clean code with stunning design.
+                Let's build something extraordinary together.
+              </p>
+            </motion.div>
 
-          {/* Connect */}
-          <div className="text-center md:text-left">
-            <h4 className="text-lg font-semibold mb-4">Connect</h4>
-            <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto md:mx-0">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="flex items-center gap-4"
+            >
               {socialLinks.map((link, i) => (
                 <a
                   key={i}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors duration-200 justify-center md:justify-start"
+                  className="p-2 rounded-full bg-white/5 hover:bg-primary/20 hover:text-primary transition-all duration-300 border border-white/5 hover:border-primary/20 group"
+                  aria-label={link.label}
                 >
-                  <link.icon size={16} />
-                  <span>{link.label}</span>
+                  <link.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
                 </a>
               ))}
-            </div>
+            </motion.div>
           </div>
+
+          {/* Quick Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h4 className="font-semibold text-white mb-6">Navigation</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.to}>
+                  <ScrollLink
+                    to={link.to}
+                    smooth={true}
+                    duration={800}
+                    className="text-muted-foreground hover:text-primary transition-colors cursor-pointer flex items-center gap-2 group w-fit"
+                  >
+                    <ChevronRight className="w-3 h-3 text-primary/50 group-hover:text-primary transition-colors" />
+                    {link.name}
+                  </ScrollLink>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <h4 className="font-semibold text-white mb-6">Contact</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-muted-foreground">
+                <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                <a href="mailto:humayunk.pvt@gmail.com" className="hover:text-white transition-colors">
+                  humayunk.pvt@gmail.com
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-muted-foreground">
+                <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                <span>Mumbai, India</span>
+              </li>
+            </ul>
+          </motion.div>
+
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-border/30 pt-8 mt-8 max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {currentYear} DevHumayun. All rights reserved.
-            </p>
+        {/* Bottom Bar */}
+        <div className="pt-8 mt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-sm text-muted-foreground text-center md:text-left"
+          >
+            © {currentYear} Khan Humayun. All rights reserved.
+          </motion.p>
 
-            <div className="flex items-center mt-4 md:mt-0">
-              <p className="text-sm text-muted-foreground flex items-center">
-                Made with <Heart className="h-3 w-3 mx-1 text-red-500" /> by Humayun
-              </p>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex items-center gap-6 text-sm text-muted-foreground"
+          >
+            <span className="flex items-center gap-1.5">
+              Made with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 animate-pulse" /> by Humayun Khan
+            </span>
+          </motion.div>
         </div>
       </div>
     </footer>

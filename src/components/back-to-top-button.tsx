@@ -1,59 +1,57 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { ChevronUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { rafThrottle } from "@/lib/scroll-utils";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function BackToTopButton() {
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = rafThrottle(() => {
-      setVisible(window.scrollY > 300);
-    });
-    
-    // Use passive event listener for better scroll performance
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div
-      className={cn(
-        "fixed z-50 right-3 bottom-3 sm:right-4 sm:bottom-4 md:right-6 md:bottom-6 transition-all duration-500",
-        visible
-          ? "opacity-100 pointer-events-auto translate-y-0"
-          : "opacity-0 pointer-events-none translate-y-4"
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
+          whileHover={{ scale: 1.1, y: -2 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          onClick={scrollToTop}
+          className={cn(
+            "fixed bottom-8 right-8 z-50",
+            "flex h-12 w-12 items-center justify-center rounded-2xl",
+            "bg-zinc-900/80 backdrop-blur-md border border-white/10 shadow-xl",
+            "text-primary hover:bg-zinc-800 hover:border-primary/20",
+            "group transition-colors duration-300"
+          )}
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1" />
+
+          {/* Glow effect */}
+          <div className="absolute inset-0 -z-10 rounded-2xl bg-primary/20 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
+        </motion.button>
       )}
-      style={{ transitionProperty: "opacity, transform" }}
-    >
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            size="icon"
-            className={cn(
-              "bg-background/60 backdrop-blur-xl border border-white/20 shadow-xl",
-              "hover:bg-background/80 hover:shadow-2xl",
-              "transition-all duration-300 text-primary glass-card",
-              "w-10 h-10 p-0 sm:w-12 sm:h-12 md:w-14 md:h-14",
-              "xs:w-9 xs:h-9 xs:right-2 xs:bottom-2 xs:p-0"
-            )}
-            style={{ boxShadow: "0 4px 32px 0 rgba(139,92,246,0.10)" }}
-            onClick={scrollToTop}
-            aria-label="Back to Top"
-          >
-            <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side="left" sideOffset={12} className="bg-background/90 backdrop-blur-md">
-          Back to Top
-        </TooltipContent>
-      </Tooltip>
-    </div>
+    </AnimatePresence>
   );
 } 

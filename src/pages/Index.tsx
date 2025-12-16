@@ -3,30 +3,38 @@ import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { Background } from "@/components/background";
 import { BackToTopButton } from "@/components/back-to-top-button";
-import { SocialSidebar } from "@/components/social-sidebar";
+
 
 // Lazy load larger components to improve initial load performance
 const AboutSection = lazy(() => import("@/components/about-section"));
+const ExperienceSection = lazy(() => import("@/components/experience-section"));
 const ProjectsSection = lazy(() => import("@/components/projects-section"));
 const SkillsSection = lazy(() => import("@/components/skills-section"));
 const ContactSection = lazy(() => import("@/components/contact-section"));
 const Footer = lazy(() => import("@/components/footer"));
 
 const Index = () => {
-  // Initialize scroll reveal observer
+  // Initialize scroll reveal observer and locomotive scroll
   useEffect(() => {
+    // Initialize Locomotive Scroll
+    let locomotiveScroll: any;
+    (async () => {
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      locomotiveScroll = new LocomotiveScroll();
+    })();
+
     // Use a more efficient IntersectionObserver configuration
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('reveal-active');
-            // Unobserve elements after they've been revealed to reduce performance impact
+            // Unobserve elements after they've been revealed to minimize performance impact
             observer.unobserve(entry.target);
           }
         });
       },
-      { 
+      {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px' // Trigger slightly before elements come into view
       }
@@ -38,6 +46,7 @@ const Index = () => {
 
     return () => {
       revealElements.forEach(el => observer.unobserve(el));
+      if (locomotiveScroll) locomotiveScroll.destroy();
     };
   }, []);
 
@@ -57,6 +66,10 @@ const Index = () => {
       </Suspense>
 
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <ExperienceSection />
+      </Suspense>
+
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
         <ProjectsSection />
       </Suspense>
 
@@ -72,7 +85,6 @@ const Index = () => {
         <Footer />
       </Suspense>
 
-      <SocialSidebar />
       <BackToTopButton />
     </div>
   );

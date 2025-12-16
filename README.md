@@ -8,29 +8,21 @@
   </p>
 </div>
 
+<br />
+
+<div align="center">
+  <img src="public/preview.png" alt="Project Preview" width="100%" style="border-radius: 10px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+</div>
+
+<br />
+
 ## 📋 Overview
 
 This portfolio website serves as a comprehensive showcase of my skills, projects, and professional journey as a Full-Stack and Blockchain Developer. Built with modern web technologies, it features a responsive design, smooth animations, and an intuitive user interface.
 
-## 📊 Project Architecture
+## ✨ Live Demo
 
-### User Flow Diagram
-This diagram illustrates how users navigate through the portfolio:
-
-<div align="center">
-  <img src="public/userflowdiagram.png" alt="User Flow Diagram" width="100%">
-</div>
-
-### Use Case Diagram
-This diagram shows the main interactions available to visitors:
-
-<div align="center">
-  <img src="public/usecasediagram.png" alt="Use Case Diagram" width="100%">
-</div>
-
-### ✨ Live Demo
-
-[View Live Portfolio](https://devhumayun.vercel.app/)
+[View Live Portfolio](https://devhumayun.me/)
 
 ## 🚀 Features
 
