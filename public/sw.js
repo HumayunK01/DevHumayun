@@ -1,4 +1,4 @@
-const CACHE_NAME = 'devhumayun-v1.1';
+const CACHE_NAME = 'devhumayun-v2.0';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -13,6 +13,7 @@ const CACHEABLE_EXTENSIONS = ['js', 'css', 'webp', 'png', 'jpg', 'jpeg', 'svg', 
 
 // Install event - cache core assets
 self.addEventListener('install', event => {
+  self.skipWaiting(); // Force this SW to become active immediately
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -22,51 +23,54 @@ self.addEventListener('install', event => {
   );
 });
 
-// Fetch event - serve cached content when offline
+// Fetch event
 self.addEventListener('fetch', event => {
   // Only cache GET requests
   if (event.request.method !== 'GET') {
     return;
   }
 
-  // Check if request is for a cacheable resource
   const url = new URL(event.request.url);
+
+  // Strategy 1: Network First for HTML/Navigation (ensures we get latest index.html)
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Update cache with new version
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+          return response;
+        })
+        .catch(() => {
+          // Fallback to cache if offline
+          return caches.match(event.request);
+        })
+    );
+    return;
+  }
+
+  // Strategy 2: Cache First, then Network for static assets
   const extension = url.pathname.split('.').pop();
-  
-  if (CACHEABLE_EXTENSIONS.includes(extension) || url.origin === self.location.origin) {
+  if (CACHEABLE_EXTENSIONS.includes(extension)) {
     event.respondWith(
       caches.match(event.request)
         .then(response => {
-          // Return cached version or fetch from network
           if (response) {
             return response;
           }
-          
-          // Clone the request because it's a stream and can only be consumed once
-          const fetchRequest = event.request.clone();
-          
-          return fetch(fetchRequest).then(response => {
-            // Check if we received a valid response
+          return fetch(event.request).then(response => {
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
-            
-            // Clone the response because it's a stream and can only be consumed once
             const responseToCache = response.clone();
-            
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-              
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseToCache);
+            });
             return response;
           });
-        })
-        .catch(() => {
-          // If both cache and network fail, and it's a navigation request, return the offline page
-          if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
-          }
         })
     );
   }
