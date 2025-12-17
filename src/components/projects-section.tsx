@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { ExternalLink, Search, Filter, Stethoscope, Palette } from "lucide-react";
-import { SiReact, SiTypescript, SiVite, SiTailwindcss, SiFramer, SiPostgresql, SiPrisma, SiSolidity, SiEthereum, SiOpenai, SiShadcnui, SiNextdotjs, SiFirebase, SiIpfs } from "react-icons/si";
+import { ExternalLink, Search, Filter, Stethoscope, Palette, Shield } from "lucide-react";
+import { SiReact, SiTypescript, SiVite, SiTailwindcss, SiFramer, SiPostgresql, SiPrisma, SiSolidity, SiEthereum, SiOpenai, SiShadcnui, SiNextdotjs, SiFirebase, SiIpfs, SiExpress, SiNodedotjs } from "react-icons/si";
 import { FaHardHat } from "react-icons/fa";
 import { FaRobot, FaDatabase, FaBolt } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
@@ -41,6 +41,9 @@ const getTechIcon = (tag: string) => {
   if (t.includes('next.js')) return <SiNextdotjs className="w-4 h-4 text-foreground" />;
   if (t.includes('firebase')) return <SiFirebase className="w-4 h-4 text-[#FFCA28]" />;
   if (t.includes('ipfs')) return <SiIpfs className="w-4 h-4 text-[#65C2CB]" />;
+  if (t.includes('express')) return <SiExpress className="w-4 h-4 text-foreground" />;
+  if (t.includes('node')) return <SiNodedotjs className="w-4 h-4 text-[#339933]" />;
+  if (t.includes('osint') || t.includes('security')) return <Shield className="w-4 h-4 text-red-500" />;
   return null;
 };
 
@@ -90,6 +93,16 @@ function ProjectsSection() {
       imageUrl: "/projects/asmeera.webp",
       githubUrl: "",
       liveUrl: "https://asmeerastays.com/",
+      featured: true
+    },
+    {
+      title: "PhishEye",
+      description: "A comprehensive, modern web application for detecting and analyzing potential scam and phishing websites using advanced OSINT (Open Source Intelligence) techniques. Built with React, TypeScript, and Express.js, PhishEye provides real-time threat detection, bulk analysis capabilities, and an intuitive user interface.",
+      tags: ["React", "TypeScript", "Express.js", "Node.js", "OSINT"],
+      category: "fullstack",
+      imageUrl: "/projects/phisheye.png",
+      githubUrl: "https://github.com/HumayunK01/PhishEye",
+      liveUrl: "https://phisheye.vercel.app/",
       featured: true
     },
     {
