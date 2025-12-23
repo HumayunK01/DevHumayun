@@ -96,26 +96,6 @@ function ProjectsSection() {
       featured: true
     },
     {
-      title: "PhishEye",
-      description: "A comprehensive, modern web application for detecting and analyzing potential scam and phishing websites using advanced OSINT (Open Source Intelligence) techniques. Built with React, TypeScript, and Express.js, PhishEye provides real-time threat detection, bulk analysis capabilities, and an intuitive user interface.",
-      tags: ["React", "TypeScript", "Express.js", "Node.js", "OSINT"],
-      category: "fullstack",
-      imageUrl: "/projects/phisheye.webp",
-      githubUrl: "https://github.com/HumayunK01/PhishEye",
-      liveUrl: "https://phisheye.vercel.app/",
-      featured: true
-    },
-    {
-      title: "RailCon MHSSCE",
-      description: "Full-stack railway concession portal. Handles student applications, document uploads, and tracking with a strictly typed backend system.",
-      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
-      category: "fullstack",
-      imageUrl: "/projects/railcon.webp",
-      githubUrl: "",
-      liveUrl: "https://railcon.vercel.app/",
-      featured: true
-    },
-    {
       title: "WEP Platform",
       description: "Health-tech platform for Medicare-covered testing. Features eligibility checking, appointment scheduling, and secure patient data handling.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "AI Agent"],
@@ -144,6 +124,26 @@ function ProjectsSection() {
       githubUrl: "",
       liveUrl: "https://programmersclub.vercel.app/",
       featured: true
+    },
+    {
+      title: "PhishEye",
+      description: "A comprehensive, modern web application for detecting and analyzing potential scam and phishing websites using advanced OSINT (Open Source Intelligence) techniques. Built with React, TypeScript, and Express.js, PhishEye provides real-time threat detection, bulk analysis capabilities, and an intuitive user interface.",
+      tags: ["React", "TypeScript", "Express.js", "Node.js", "OSINT"],
+      category: "fullstack",
+      imageUrl: "/projects/phisheye.webp",
+      githubUrl: "https://github.com/HumayunK01/PhishEye",
+      liveUrl: "https://phisheye.vercel.app/",
+      featured: true
+    },
+    {
+      title: "RailCon MHSSCE",
+      description: "Full-stack railway concession portal. Handles student applications, document uploads, and tracking with a strictly typed backend system.",
+      tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
+      category: "fullstack",
+      imageUrl: "/projects/railcon.webp",
+      githubUrl: "",
+      liveUrl: "https://railcon.vercel.app/",
+      featured: true
     }
   ];
 
@@ -158,7 +158,7 @@ function ProjectsSection() {
   });
 
   return (
-    <section id="projects" className="relative py-24 overflow-hidden">
+    <section id="projects" className="relative py-24 overflow-hidden" style={{ position: 'relative' }}>
       {/* Consistent Grid Background */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
         <div className="absolute left-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]" />

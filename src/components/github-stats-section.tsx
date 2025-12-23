@@ -64,7 +64,7 @@ function GitHubStatsSection() {
     }, []);
 
     return (
-        <section id="github" className="relative py-12 md:py-18 overflow-hidden">
+        <section id="github" className="relative py-12 md:py-18 overflow-hidden" style={{ position: 'relative' }}>
             {/* Background Elements */}
             <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
                 <div className="absolute left-0 top-1/4 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]" />
