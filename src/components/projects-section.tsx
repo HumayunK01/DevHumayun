@@ -70,7 +70,7 @@ function ProjectsSection() {
       description: "A modern, responsive, and accessible web portal for the PS Foundation, a non-profit organization dedicated to building sustainable futures through education, healthcare, and community development across rural India.",
       tags: ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Vite", "Context API"],
       category: "frontend",
-      imageUrl: "/projects/psfoundation.png",
+      imageUrl: "/projects/psfoundation.webp",
       githubUrl: "",
       liveUrl: "https://psfoundationforyou.vercel.app/",
       featured: true
@@ -80,7 +80,7 @@ function ProjectsSection() {
       description: "A modern, feature-rich AI chat assistant powered by OpenRouter. Features multiple AI models, real-time streaming, chat history, and voice input.",
       tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "OpenRouter API", "shadcn/ui"],
       category: "fullstack",
-      imageUrl: "/projects/chatflow.png",
+      imageUrl: "/projects/chatflow.webp",
       githubUrl: "https://github.com/HumayunK01/ChatFlow",
       liveUrl: "https://chatflowaibot.vercel.app/",
       featured: true
@@ -100,7 +100,7 @@ function ProjectsSection() {
       description: "A comprehensive, modern web application for detecting and analyzing potential scam and phishing websites using advanced OSINT (Open Source Intelligence) techniques. Built with React, TypeScript, and Express.js, PhishEye provides real-time threat detection, bulk analysis capabilities, and an intuitive user interface.",
       tags: ["React", "TypeScript", "Express.js", "Node.js", "OSINT"],
       category: "fullstack",
-      imageUrl: "/projects/phisheye.png",
+      imageUrl: "/projects/phisheye.webp",
       githubUrl: "https://github.com/HumayunK01/PhishEye",
       liveUrl: "https://phisheye.vercel.app/",
       featured: true
@@ -110,7 +110,7 @@ function ProjectsSection() {
       description: "Full-stack railway concession portal. Handles student applications, document uploads, and tracking with a strictly typed backend system.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript", "Prisma ORM", "PostGreSQL", "Neon"],
       category: "fullstack",
-      imageUrl: "/projects/railcon.png",
+      imageUrl: "/projects/railcon.webp",
       githubUrl: "",
       liveUrl: "https://railcon.vercel.app/",
       featured: true
@@ -130,29 +130,9 @@ function ProjectsSection() {
       description: "Premium brand website for a heritage dessert chain. Showcases products with high-end photography and smooth scroll animations.",
       tags: ["React", "Tailwind CSS", "Vite", "TypeScript"],
       category: "frontend",
-      imageUrl: "/projects/shahidurbar.png",
+      imageUrl: "/projects/shahidurbar.webp",
       githubUrl: "",
       liveUrl: "https://shahidurbar.vercel.app",
-      featured: true
-    },
-    {
-      title: "PawFund",
-      description: "PawFund is a decentralized crowdfunding platform for animal rescue, connecting donors with urgent cases through blockchain technology.",
-      tags: ["React", "Tailwind CSS", "Ethereum", "Hardhat", "IPFS"],
-      category: "blockchain",
-      imageUrl: "/projects/pawfund.webp",
-      githubUrl: "https://github.com/HumayunK01/PawFund",
-      liveUrl: "",
-      featured: true
-    },
-    {
-      title: "EtherEstate",
-      description: "Decentralized real estate marketplace. Handles property listing, buying, and ownership transfer via Ethereum smart contracts.",
-      tags: ["React", "Tailwind CSS", "Solidity", "Web3", "Hardhat"],
-      category: "blockchain",
-      imageUrl: "/projects/etherestate.webp",
-      githubUrl: "https://github.com/HumayunK01/EtherEstate",
-      liveUrl: "https://ethestate.vercel.app/",
       featured: true
     },
     {
@@ -204,7 +184,7 @@ function ProjectsSection() {
 
           {/* Categories */}
           <div className="flex flex-wrap justify-center gap-2">
-            {(["all", "frontend", "fullstack", "blockchain"] as const).map((cat) => (
+            {(["all", "frontend", "fullstack"] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
