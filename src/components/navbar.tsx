@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { rafThrottle } from "@/lib/scroll-utils";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
+import { VisitorCounter } from "@/components/visitor-counter";
 
 // Static data defined outside component to prevent recreation
 const NAV_LINKS = [
@@ -144,6 +145,7 @@ export function Navbar({ className }: NavbarProps) {
           </Link>
 
           <div className="flex items-center gap-2">
+            <VisitorCounter isScrolled={true} />
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
@@ -244,6 +246,11 @@ export function Navbar({ className }: NavbarProps) {
                   onClick={handleScrollToSection}
                 />
               ))}
+
+              {/* Visitor Counter - Desktop */}
+              <div className={cn(isScrolled ? "ml-2" : "ml-4")}>
+                <VisitorCounter isScrolled={isScrolled} />
+              </div>
 
               {/* Resume Download Button - Desktop */}
               <button
